@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+:root {
+  --forest: #123c2d;
+  --forest-2: #1e563d;
+  --moss: #88a95b;
+  --leaf: #dfe9cf;
+  --sand: #f4f0e6;
+  --ink: #17221d;
+  --amber: #d9a441;
+}
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--sand); color: var(--ink); font-family: "Noto Sans Devanagari", "Mangal", system-ui, sans-serif; }
+::selection { background: #d9a44155; }
+.forest-grid { background-image: linear-gradient(#ffffff08 1px, transparent 1px), linear-gradient(90deg, #ffffff08 1px, transparent 1px); background-size: 34px 34px; }
+.paper { background: linear-gradient(180deg, #fffdf8 0%, #f8f2e6 100%); box-shadow: 0 18px 70px #0c2c2017; }
+.badge { border: 1px solid #ffffff35; background: #ffffff14; backdrop-filter: blur(10px); }
+.card { border: 1px solid #183e2c18; background: #fffdf8; box-shadow: 0 10px 35px #10291f0d; }
+.section-kicker { letter-spacing: .14em; text-transform: uppercase; color: #5e734a; font-weight: 800; font-size: .75rem; }
+.photo-credit { background: #10251dcc; color: #fff; }
+.map-frame iframe { width: 100%; min-height: 430px; border: 0; display: block; }
+summary::-webkit-details-marker { display: none; }

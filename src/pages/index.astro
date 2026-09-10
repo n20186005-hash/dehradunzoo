@@ -1,0 +1,239 @@
+---
+import '../styles/global.css';
+
+const canonical = Astro.site ? new URL('/', Astro.site).toString() : undefined;
+const ogImage = Astro.site ? new URL('/icons/logo.svg', Astro.site).toString() : undefined;
+const mapUrl = 'https://maps.app.goo.gl/Egak7AZJp3zzA7s88';
+const govUrl = 'https://nndehradun.uk.gov.in/places-centres/malsi-deer-park/';
+const photos = {
+  entrance: 'https://upload.wikimedia.org/wikipedia/commons/d/dd/Malsi_deer_park_dehradun_zoo.png',
+  deer: 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Bevy_of_spotted_deer.jpg',
+  monkey: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/An_Indian_monkey_%28bandar%29_in_Malsi_Deer_Park_%28photo_-_Jim_Ankan_Deka%29.jpg'
+};
+
+const faq = [
+  { q: 'देहरादून जू किस दिन बंद रहता है?', a: 'प्रचलित दर्शक जानकारी के अनुसार सोमवार को बंद और मंगलवार से रविवार तक खुला रहता है। समय बदल सकता है, इसलिए निकलने से पहले फोन या स्थानीय सूचना से पुष्टि करना बेहतर है।' },
+  { q: 'यहां कितना समय रखना चाहिए?', a: 'आराम से पशु बाड़ों, पक्षी क्षेत्र और हरियाली को देखने के लिए लगभग 2–3 घंटे रखें। छोटे बच्चों के साथ अधिक समय लग सकता है।' },
+  { q: 'क्या पार्किंग उपलब्ध है?', a: 'Mussoorie Road की ओर आने वाले आगंतुकों के लिए पार्किंग की सुविधा बताई जाती है। सप्ताहांत और छुट्टियों में जल्दी पहुंचना बेहतर है।' },
+  { q: 'क्या बच्चों के लिए उपयुक्त है?', a: 'हाँ। यह एक छोटा, हरियाली वाला जूलॉजिकल पार्क है और परिवारों के लिए लोकप्रिय है। बच्चों को पशु अवलोकन, पक्षी क्षेत्र और प्रकृति-आधारित अनुभव मिलते हैं।' },
+  { q: 'टिकट कितने का है?', a: 'ऑनलाइन स्थानीय गाइड वयस्क टिकट लगभग ₹100 बताती है और 12 वर्ष तक के बच्चों के लिए निःशुल्क प्रवेश का उल्लेख करती है। दरें बदल सकती हैं; काउंटर पर अंतिम कीमत मान्य होगी।' }
+];
+
+const attractionLd = {
+  '@context': 'https://schema.org',
+  '@type': ['TouristAttraction', 'LocalBusiness'],
+  name: 'देहरादून जू',
+  alternateName: ['Dehradun Zoo', 'Malsi Deer Park', 'मालसी डियर पार्क'],
+  description: 'मसूरी रोड, मालसी में स्थित छोटा जूलॉजिकल पार्क, जो वन्यजीव संरक्षण, जैव-विविधता शिक्षा और पारिवारिक प्रकृति भ्रमण के लिए जाना जाता है।',
+  ...(canonical ? { url: canonical } : {}),
+  telephone: '+91-9027174404',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Diversion, Mussoorie Road, Malsi',
+    addressLocality: 'Dehradun',
+    addressRegion: 'Uttarakhand',
+    postalCode: '248009',
+    addressCountry: 'IN'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 30.390192,
+    longitude: 78.074861
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.2',
+    reviewCount: '21544',
+    bestRating: '5'
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
+      opens: '10:00',
+      closes: '17:00'
+    }
+  ],
+  priceRange: 'लगभग ₹100 वयस्क; दरें बदल सकती हैं',
+  sameAs: [mapUrl, govUrl]
+};
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a }
+  }))
+};
+---
+<!doctype html>
+<html lang="hi-IN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>देहरादून जू | मालसी वन्यजीव यात्रा मार्गदर्शिका</title>
+    <meta name="description" content="देहरादून जू (पूर्व नाम मालसी डियर पार्क) के लिए हिंदी यात्रा मार्गदर्शिका—समय, टिकट, पार्किंग, रास्ता, पास के आकर्षण, भोजन और उपयोगी FAQ।" />
+    <meta name="theme-color" content="#123c2d" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icons/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/icons/favicon-16.png" type="image/png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="देहरादून जू | मालसी वन्यजीव यात्रा मार्गदर्शिका" />
+    <meta property="og:description" content="मसूरी रोड पर स्थित देहरादून जू के लिए स्थानीय हिंदी यात्रा जानकारी।" />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <script type="application/ld+json" set:html={JSON.stringify(attractionLd)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP"></script>
+    <script src="/ga4.js"></script>
+  </head>
+  <body>
+    <header class="sticky top-0 z-50 border-b border-white/10 bg-[#123c2d]/95 text-white backdrop-blur-xl">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 py-3 lg:px-8">
+        <a href="#top" aria-label="मुखपृष्ठ" class="shrink-0"><img src="/icons/logo.svg" alt="देहरादून जू" class="h-11 w-auto" /></a>
+        <nav class="hidden items-center gap-6 text-sm font-semibold md:flex">
+          <a class="hover:text-[#d9a441]" href="#plan">यात्रा योजना</a>
+          <a class="hover:text-[#d9a441]" href="#reach">कैसे पहुँचें</a>
+          <a class="hover:text-[#d9a441]" href="#nearby">आस-पास</a>
+          <a class="hover:text-[#d9a441]" href="#faq">FAQ</a>
+        </nav>
+        <a href={mapUrl} class="rounded-full bg-[#d9a441] px-4 py-2 text-sm font-black text-[#173326]">दिशा खोलें</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="forest-grid relative overflow-hidden bg-[#123c2d] text-white">
+        <div class="absolute inset-0 opacity-35" style={`background-image:linear-gradient(90deg,#123c2d 4%,#123c2dc4 48%,#123c2d22 100%),url('${photos.entrance}');background-size:cover;background-position:center;`}></div>
+        <div class="relative mx-auto grid min-h-[760px] max-w-7xl items-end gap-10 px-5 pb-16 pt-28 lg:grid-cols-[1.15fr_.85fr] lg:px-8 lg:pb-24">
+          <div>
+            <div class="mb-5 flex flex-wrap gap-2 text-sm font-bold">
+              <span class="badge rounded-full px-3 py-1.5">शिवालिक की तलहटी</span>
+              <span class="badge rounded-full px-3 py-1.5">मालसी • मसूरी रोड</span>
+              <span class="badge rounded-full px-3 py-1.5">★ 4.2 · 21,544 समीक्षाएँ</span>
+            </div>
+            <p class="mb-3 text-sm font-extrabold uppercase tracking-[.22em] text-[#c7dda3]">पूर्व नाम: मालसी डियर पार्क</p>
+            <h1 class="max-w-3xl text-5xl font-black leading-[1.05] sm:text-6xl lg:text-8xl">देहरादून जू</h1>
+            <p class="mt-6 max-w-2xl text-lg leading-8 text-white/82 sm:text-xl">शहर से पहाड़ों की ओर बढ़ते रास्ते पर एक हरा-भरा छोटा जूलॉजिकल पार्क—जहाँ वन्यजीव अवलोकन, जैव-विविधता शिक्षा और परिवार के साथ धीमी प्रकृति-यात्रा एक साथ मिलती है।</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a href="#plan" class="rounded-full bg-white px-6 py-3 font-black text-[#123c2d]">यात्रा की योजना</a>
+              <a href="tel:+919027174404" class="rounded-full border border-white/30 px-6 py-3 font-bold">+91 90271 74404</a>
+            </div>
+          </div>
+          <aside class="paper rounded-[2rem] p-6 text-[#17221d] sm:p-8">
+            <p class="section-kicker">एक नज़र में</p>
+            <div class="mt-5 grid grid-cols-2 gap-4">
+              <div class="rounded-2xl bg-[#e8efd9] p-4"><div class="text-xs font-bold text-[#5b6b4d]">सामान्य समय*</div><div class="mt-1 text-xl font-black">10:00–17:00</div></div>
+              <div class="rounded-2xl bg-[#f3e8cb] p-4"><div class="text-xs font-bold text-[#796b48]">सोमवार*</div><div class="mt-1 text-xl font-black">बंद</div></div>
+              <div class="rounded-2xl bg-[#e9eee8] p-4"><div class="text-xs font-bold text-[#5a6860]">सुझाया समय</div><div class="mt-1 text-xl font-black">2–3 घंटे</div></div>
+              <div class="rounded-2xl bg-[#e9eee8] p-4"><div class="text-xs font-bold text-[#5a6860]">वयस्क टिकट*</div><div class="mt-1 text-xl font-black">लगभग ₹100</div></div>
+            </div>
+            <p class="mt-4 text-xs leading-5 text-black/55">* समय और शुल्क बदल सकते हैं; काउंटर/स्थानीय सूचना अंतिम मानी जाए।</p>
+            <div class="mt-6 border-t border-black/10 pt-5 text-sm leading-6"><strong>पता:</strong><br/>Diversion, Mussoorie Rd, Malsi, Dehradun, Uttarakhand 248009</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
+        <div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-center">
+          <div>
+            <p class="section-kicker">यह जगह क्यों खास है</p>
+            <h2 class="mt-3 text-4xl font-black leading-tight sm:text-5xl">चिड़ियाघर से अधिक—एक संरक्षण और प्रकृति-शिक्षा स्थल</h2>
+            <p class="mt-5 text-lg leading-8 text-black/70">नगर निगम देहरादून के अनुसार यह स्थल पहले मालसी डियर पार्क के नाम से जाना जाता था। इसका उद्देश्य वन्यजीवों का ex-situ संरक्षण, जैव-विविधता संरक्षण, शिक्षा और वन्यजीव बचाव से जुड़ा है।</p>
+            <a class="mt-6 inline-flex font-black text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={govUrl}>सरकारी जानकारी देखें ↗</a>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <figure class="relative overflow-hidden rounded-[2rem] sm:row-span-2"><img src={photos.deer} alt="मालसी डियर पार्क में चीतल" class="h-full min-h-[520px] w-full object-cover" loading="lazy" /><figcaption class="photo-credit absolute bottom-3 left-3 rounded-full px-3 py-1 text-xs">चीतल • Malsi Deer Park</figcaption></figure>
+            <figure class="relative overflow-hidden rounded-[2rem]"><img src={photos.monkey} alt="मालसी डियर पार्क में रीसस मकाक" class="h-64 w-full object-cover" loading="lazy" /><figcaption class="photo-credit absolute bottom-3 left-3 rounded-full px-3 py-1 text-xs">रीसस मकाक • Malsi</figcaption></figure>
+            <div class="rounded-[2rem] bg-[#173f2f] p-7 text-white"><p class="text-5xl font-black text-[#c6dca0]">25 ha</p><p class="mt-2 leading-7 text-white/75">प्रकाशित स्थानीय पर्यटन जानकारी के अनुसार परिसर लगभग 25 हेक्टेयर में फैला है।</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="plan" class="bg-[#e7ecd9] py-16 lg:py-24">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <p class="section-kicker">यात्रा योजना</p>
+          <h2 class="mt-3 text-4xl font-black sm:text-5xl">जाने से पहले क्या जानें</h2>
+          <div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            <article class="card rounded-[1.6rem] p-6"><div class="text-3xl">🎟️</div><h3 class="mt-4 text-xl font-black">टिकट / शुल्क</h3><p class="mt-2 leading-7 text-black/65">स्थानीय प्रकाशित गाइड में वयस्क टिकट लगभग ₹100 और 12 वर्ष तक के बच्चों के लिए निःशुल्क प्रवेश बताया गया है। अतिरिक्त सुविधाओं की फीस अलग हो सकती है।</p></article>
+            <article class="card rounded-[1.6rem] p-6"><div class="text-3xl">🅿️</div><h3 class="mt-4 text-xl font-black">पार्किंग</h3><p class="mt-2 leading-7 text-black/65">परिसर के पास पार्किंग उपलब्ध बताई जाती है। सप्ताहांत, छुट्टी और अच्छे मौसम वाले दिनों में सुबह जल्दी पहुँचना अधिक सुविधाजनक रहता है।</p></article>
+            <article class="card rounded-[1.6rem] p-6"><div class="text-3xl">🌤️</div><h3 class="mt-4 text-xl font-black">बेहतर समय</h3><p class="mt-2 leading-7 text-black/65">अक्टूबर से मार्च आरामदायक रहता है। गर्म महीनों में सुबह का स्लॉट चुनें; दिन चढ़ने पर धूप और भीड़ दोनों बढ़ सकती हैं।</p></article>
+            <article class="card rounded-[1.6rem] p-6"><div class="text-3xl">⏱️</div><h3 class="mt-4 text-xl font-black">कितना समय रखें</h3><p class="mt-2 leading-7 text-black/65">तेज़ घूमने के बजाय 2–3 घंटे रखें। बच्चों, फोटोग्राफी या शांत प्रकृति-वॉक के साथ आधा दिन भी सहज हो सकता है।</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="reach" class="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
+          <div>
+            <p class="section-kicker">विस्तृत परिवहन</p>
+            <h2 class="mt-3 text-4xl font-black">देहरादून से मसूरी रोड की ओर</h2>
+            <div class="mt-7 space-y-5">
+              <div class="card rounded-2xl p-5"><strong>शहर से</strong><p class="mt-1 leading-7 text-black/65">Clock Tower / Rajpur Road क्षेत्र से टैक्सी, ऑटो या निजी वाहन द्वारा Mussoorie Road पर Malsi की दिशा लें। सरकारी विवरण स्थल को Clock Tower से लगभग 9 किमी बताता है।</p></div>
+              <div class="card rounded-2xl p-5"><strong>रेलवे स्टेशन से</strong><p class="mt-1 leading-7 text-black/65">Dehradun Railway Station से सड़क मार्ग सबसे सरल है। शहर ट्रैफिक के अनुसार अतिरिक्त समय रखें।</p></div>
+              <div class="card rounded-2xl p-5"><strong>हवाई अड्डे से</strong><p class="mt-1 leading-7 text-black/65">Jolly Grant Airport शहर का निकटतम प्रमुख हवाई अड्डा है; वहाँ से टैक्सी द्वारा देहरादून और फिर Mussoorie Road की ओर आएँ।</p></div>
+            </div>
+          </div>
+          <div class="map-frame overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-2xl shadow-black/10">
+            <iframe title="देहरादून जू का Google मानचित्र" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6116.945574265705!2d78.07269757714758!3d30.39008630210863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3908d7a8b4fca143%3A0xaf3a6aa36d3264ba!2sDehradun%20Zoo!5e1!3m2!1shi!2sin!4v1788955072230!5m2!1shi!2sin" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            <div class="flex flex-wrap items-center justify-between gap-4 p-5"><div><strong>93RG+24 • Malsi, Dehradun</strong><p class="text-sm text-black/55">Mussoorie Road, Uttarakhand 248009</p></div><a href={mapUrl} class="rounded-full bg-[#123c2d] px-5 py-3 font-bold text-white">Google Maps ↗</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="nearby" class="bg-[#123c2d] py-16 text-white lg:py-24">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <p class="text-xs font-black uppercase tracking-[.16em] text-[#b8d48f]">पास में क्या जोड़ें</p>
+          <h2 class="mt-3 max-w-3xl text-4xl font-black sm:text-5xl">एक दिन की देहरादून प्रकृति + शहर यात्रा</h2>
+          <div class="mt-10 grid gap-5 lg:grid-cols-3">
+            <article class="rounded-[1.7rem] bg-white/8 p-6 ring-1 ring-white/10"><p class="text-sm font-bold text-[#c8dda8]">लगभग 2 किमी</p><h3 class="mt-2 text-2xl font-black">Robber’s Cave / गुच्चू पानी</h3><p class="mt-3 leading-7 text-white/70">चट्टानों के बीच बहती धारा वाला लोकप्रिय प्राकृतिक स्थल। जू के साथ जोड़ी जाने वाली सबसे आसान आसपास की यात्राओं में से एक।</p></article>
+            <article class="rounded-[1.7rem] bg-white/8 p-6 ring-1 ring-white/10"><p class="text-sm font-bold text-[#c8dda8]">Rajpur Road की ओर</p><h3 class="mt-2 text-2xl font-black">MDDA Park / Rajpur</h3><p class="mt-3 leading-7 text-white/70">हल्की सैर, शहर के दृश्य और शाम के लिए शांत विकल्प। परिवारों के लिए सहज अगला पड़ाव।</p></article>
+            <article class="rounded-[1.7rem] bg-white/8 p-6 ring-1 ring-white/10"><p class="text-sm font-bold text-[#c8dda8]">लंबी आधे-दिन की योजना</p><h3 class="mt-2 text-2xl font-black">Forest Research Institute</h3><p class="mt-3 leading-7 text-white/70">औपनिवेशिक स्थापत्य, विशाल हरियाली और वानिकी इतिहास—जू से अलग लेकिन उसी प्रकृति-आधारित दिन को पूरा करने वाला अनुभव।</p></article>
+          </div>
+
+          <div class="mt-14 grid gap-8 border-t border-white/15 pt-12 lg:grid-cols-[.7fr_1.3fr]">
+            <div><p class="text-xs font-black uppercase tracking-[.16em] text-[#b8d48f]">आस-पास भोजन</p><h2 class="mt-3 text-4xl font-black">Rajpur–Mussoorie Road पर कैफ़े और भोजन</h2></div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-2xl bg-white p-5 text-[#17221d]"><strong>Beyul / आसपास होटल रेस्तराँ</strong><p class="mt-1 text-sm leading-6 text-black/60">जू से लगभग 1 किमी के भीतर प्रकाशित रेस्तराँ सूचियों में भारतीय और एशियाई विकल्प मिलते हैं।</p></div>
+              <div class="rounded-2xl bg-white p-5 text-[#17221d]"><strong>Café De Piccolo / Rajpur Road</strong><p class="mt-1 text-sm leading-6 text-black/60">कैफ़े शैली भोजन, कॉफ़ी और हल्के स्नैक्स के लिए लोकप्रिय विकल्प; जू के बाद शहर लौटते समय सुविधाजनक।</p></div>
+              <div class="rounded-2xl bg-white p-5 text-[#17221d]"><strong>स्थानीय ढाबे</strong><p class="mt-1 text-sm leading-6 text-black/60">Malsi–Mussoorie Road पर छोटे स्थानीय भोजनालय मिलते हैं; साफ-सफाई, भीड़ और ताज़ा भोजन देखकर चुनें।</p></div>
+              <div class="rounded-2xl bg-[#d9a441] p-5 text-[#173326]"><strong>सरल सुझाव</strong><p class="mt-1 text-sm leading-6">सुबह जू → दोपहर भोजन → Robber’s Cave / Rajpur → शाम शहर वापसी।</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="mx-auto max-w-4xl px-5 py-16 lg:py-24">
+        <p class="section-kicker">FAQ</p>
+        <h2 class="mt-3 text-4xl font-black sm:text-5xl">अक्सर पूछे जाने वाले सवाल</h2>
+        <div class="mt-8 divide-y divide-black/10 rounded-[2rem] border border-black/10 bg-[#fffdf8] px-6 sm:px-8">
+          {faq.map((item) => (
+            <details class="group py-5">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-black"><span>{item.q}</span><span class="text-2xl text-[#1e563d] transition group-open:rotate-45">+</span></summary>
+              <p class="max-w-3xl pt-3 leading-7 text-black/65">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-7xl px-5 pb-16 lg:px-8 lg:pb-24">
+        <div class="rounded-[2rem] bg-[#e8efd9] p-7 sm:p-10">
+          <h2 class="text-3xl font-black">जिम्मेदार यात्रा</h2>
+          <div class="mt-5 grid gap-4 text-sm leading-6 text-black/65 md:grid-cols-3"><p>जानवरों को खाना न खिलाएँ और बाड़ों के भीतर कुछ न फेंकें।</p><p>प्लास्टिक और कचरे को निर्धारित डिब्बों में डालें; शांति बनाए रखें।</p><p>फ्लैश फोटोग्राफी, तेज़ आवाज़ या जानवरों को उकसाने से बचें।</p></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-[#0d2d22] text-white">
+      <div class="mx-auto max-w-7xl px-5 py-10 lg:px-8">
+        <div class="flex flex-col justify-between gap-7 md:flex-row md:items-end">
+          <div><img src="/icons/logo.svg" alt="देहरादून जू" class="h-12 w-auto" /><p class="mt-4 max-w-xl text-sm leading-6 text-white/60">यह एक स्वतंत्र यात्रा सूचना वेबसाइट है; इसका Dehradun Zoo, Uttarakhand Forest Department या किसी सरकारी निकाय से आधिकारिक संबंध नहीं है।</p></div>
+          <div class="text-sm text-white/65"><a href={govUrl} class="hover:text-white">सरकारी संदर्भ</a><span class="mx-3">•</span><a href={mapUrl} class="hover:text-white">Google Maps</a><span class="mx-3">•</span><a href="/images/IMAGE-SOURCES.md" class="hover:text-white">फोटो क्रेडिट</a></div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

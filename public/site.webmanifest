@@ -1,0 +1,12 @@
+{
+  "name": "देहरादून जू यात्रा मार्गदर्शिका",
+  "short_name": "देहरादून जू",
+  "icons": [
+    {"src":"/icons/favicon-32.png","sizes":"32x32","type":"image/png"},
+    {"src":"/icons/apple-touch-icon.png","sizes":"180x180","type":"image/png"},
+    {"src":"/icons/favicon.svg","sizes":"any","type":"image/svg+xml"}
+  ],
+  "theme_color":"#123c2d",
+  "background_color":"#f4f0e6",
+  "display":"standalone"
+}
