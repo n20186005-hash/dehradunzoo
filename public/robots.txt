@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# AI / answer-engine crawlers are explicitly welcome (AI overviews, snippets).
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://dehradunzoo.com/sitemap-index.xml
+Host: dehradunzoo.com

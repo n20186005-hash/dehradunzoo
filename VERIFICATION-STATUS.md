@@ -1,24 +1,29 @@
 # Verification status
 
-## Static checks completed in this workspace
+## Checks completed in this workspace
 
-- `package.json` and `site.webmanifest` JSON syntax validated.
-- Source scan found no `example.com`, `localhost`, or `chrome-extension://` strings.
-- The Google Maps embed is localized to Hindi / India (`hi` / `in`).
-- Astro `site` is sourced only from `SITE_URL` in `astro.config.mjs`; when unset, canonical/OG absolute URLs are omitted and the sitemap integration is disabled.
-- Logo, SVG favicon, PNG 16×16 / 32×32 favicon and 180×180 Apple touch icon are present.
+- `pnpm install` regenerated a complete `pnpm-lock.yaml`. The previous file only pinned the pnpm release itself and contained no project dependencies, so `--frozen-lockfile` could never succeed before.
+- `pnpm check` — Result (5 files): **0 errors, 0 warnings, 0 hints**.
+- `pnpm build` — 1 page built; `sitemap-index.xml` and `sitemap-0.xml` created in `dist/`.
+- Placeholder scan of `dist/index.html` found no `example.com`, `localhost` or `chrome-extension://` strings.
+- `dist/` contains `index.html`, `robots.txt`, `site.webmanifest`, `sw.js`, `_headers`, `sitemap-index.xml`, `sitemap-0.xml` and the `icons/`, `images/`, `_astro/` directories.
+- Every sitemap URL uses `https://dehradunzoo.com/`; no invented `lastmod` values are present.
+- All four JSON-LD blocks parse as valid JSON:
+  - `TouristAttraction` + `LocalBusiness` + `Zoo` — `@id=https://dehradunzoo.com/#attraction`, 3 `image` entries, `isAccessibleForFree=false`, `hasMap`, `geo`, `sameAs`, opening hours, aggregate rating.
+  - `WebSite` — `@id=https://dehradunzoo.com/#website`.
+  - `BreadcrumbList` — 4 items (attraction → city → state → country).
+  - `FAQPage` — 13 questions (5 Hindi + 8 English).
+- Heading audit of `dist/index.html`: exactly one `H1` (Hindi name plus `Dehradun Zoo · Malsi Deer Park · Dehradun, India`) and the four template `H2`s (`About`, `Location & How to Visit …`, `Landmarks & Attractions Around …`, `History & Significance of …`) alongside every pre-existing Hindi `H2`/`H3`.
+- `og:image` resolves to `https://dehradunzoo.com/images/og-dehradun-zoo.jpg` (1200×630, ~197 KB) and ships with `og:image:alt`, `og:image:width`, `og:image:height` and a full Twitter card set.
+- The hero visual is a real `<img>` with an entity-bound `alt`, explicit `width`/`height`, `loading="eager"` and `fetchpriority="high"`; gallery alts bind the attraction name, the former name, the city and the country.
+- PWA icons are installed as a maskable-safe set: `icon-192.png`, `icon-512.png`, `apple-touch-icon.png` (180), `favicon.svg`, `favicon-32.png`, `favicon-16.png`, `logo.svg`.
+- Attraction photos are served locally and were re-encoded for the web at unchanged aspect ratios: spotted deer 4.55 MB → 265 KB, entrance 1.69 MB → 199 KB, macaque 350 KB → 55 KB.
 
-## Network-blocked checks
+## Environment notes
 
-This execution environment cannot reach the npm registry, so Corepack cannot download the pinned pnpm release and dependencies cannot be installed. For that reason the required clean-environment commands could not be truthfully completed here:
+- Node.js here is `v24.14.0` while `.node-version`/`engines` pin `24.21.0`; pnpm `12.3.4` matched the pin exactly.
+- pnpm reports `ERR_PNPM_IGNORED_BUILDS` for `esbuild` after install. Installs plus `astro check` and `astro build` still completed successfully, so the ignored build script blocked nothing in this run. Run `pnpm approve-builds` and select `esbuild` if a clean environment ever needs it.
 
-```sh
-rm -rf node_modules
-CI=1 corepack pnpm install --frozen-lockfile
-pnpm check
-pnpm build
-```
+## Not verified here
 
-A generated `pnpm-lock.yaml` is intentionally **not fabricated**. Generate it only in an environment that can reach npm, then immediately repeat the exact frozen-lockfile/check/build sequence above. Do not mark the project release-ready until all four commands pass.
-
-The three attraction photos referenced by the page are genuine Dehradun Zoo / Malsi Deer Park Wikimedia Commons images, but this workspace also cannot download their binary bytes. Their original-file URLs and licenses are recorded in `public/images/IMAGE-SOURCES.md`. The page therefore uses those exact real-photo URLs remotely until they are downloaded into `public/images/` and the three paths are switched to local files.
+- Google Rich Results Test / Search Console validation and the Cloudflare Worker deployment must be run against the live `dehradunzoo.com` host.

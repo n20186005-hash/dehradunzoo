@@ -1,15 +1,69 @@
 ---
 import '../styles/global.css';
 
-const canonical = Astro.site ? new URL('/', Astro.site).toString() : undefined;
-const ogImage = Astro.site ? new URL('/icons/logo.svg', Astro.site).toString() : undefined;
-const mapUrl = 'https://maps.app.goo.gl/Egak7AZJp3zzA7s88';
-const govUrl = 'https://nndehradun.uk.gov.in/places-centres/malsi-deer-park/';
-const photos = {
-  entrance: 'https://upload.wikimedia.org/wikipedia/commons/d/dd/Malsi_deer_park_dehradun_zoo.png',
-  deer: 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Bevy_of_spotted_deer.jpg',
-  monkey: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/An_Indian_monkey_%28bandar%29_in_Malsi_Deer_Park_%28photo_-_Jim_Ankan_Deka%29.jpg'
+/* ------------------------------------------------------------------ *
+ * Single-attraction SEO entity binding configuration.
+ * Every <title>, meta tag, schema node, heading and alt text below is
+ * derived from this one object, so binding another attraction only
+ * means editing these values.
+ *
+ * DOMAIN_NAME               -> attraction.domain      (dehradunzoo.com)
+ * ATTRACTION_FULL_NAME      -> attraction.fullName    (Dehradun Zoo)
+ * ATTRACTION_SHORT_NAME     -> attraction.shortName   (Malsi Deer Park)
+ * CITY_NAME                 -> attraction.city        (Dehradun)
+ * STATE_PROVINCE            -> attraction.state       (Uttarakhand)
+ * COUNTRY_NAME              -> attraction.country     (India)
+ * COUNTRY_CODE_2LETTER      -> attraction.countryCode (IN)
+ * POSTAL_CODE               -> attraction.postalCode  (248009)
+ * LATITUDE / LONGITUDE      -> attraction.latitude / .longitude
+ * MAPS_SHARE_URL            -> mapUrl
+ * MAPS_EMBED_SRC            -> mapEmbedSrc
+ * NEARBY_LANDMARK_1/2       -> attraction.nearbyLandmarks
+ * GOVT_TOURISM_URL          -> tourismUrl
+ * ------------------------------------------------------------------ */
+const attraction = {
+  domain: 'dehradunzoo.com',
+  fullName: 'Dehradun Zoo',
+  shortName: 'Malsi Deer Park',
+  legacyName: 'Malsi Deer Park',
+  city: 'Dehradun',
+  state: 'Uttarakhand',
+  country: 'India',
+  countryCode: 'IN',
+  postalCode: '248009',
+  streetAddress: 'Diversion, Mussoorie Road, Malsi',
+  latitude: 30.3900863,
+  longitude: 78.0726976,
+  plusCode: '93RG+24',
+  phone: '+919027174404',
+  phoneDisplay: '+91 90271 74404',
+  category: 'Zoo / wildlife park',
+  ratingValue: '4.2',
+  reviewCount: '21544',
+  nearbyLandmarks: ["Robber's Cave (Gucchhu Pani)", 'MDDA Park / Rajpur Road', 'Forest Research Institute']
 };
+
+const siteOrigin = Astro.site ? new URL('/', Astro.site).origin : `https://${attraction.domain}`;
+const canonical = `${siteOrigin}/`;
+const abs = (path: string) => new URL(path, `${siteOrigin}/`).toString();
+
+const mapUrl = 'https://maps.app.goo.gl/Egak7AZJp3zzA7s88';
+const mapEmbedSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6116.945574265705!2d78.07269757714758!3d30.39008630210863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3908d7a8b4fca143%3A0xaf3a6aa36d3264ba!2sDehradun%20Zoo!5e1!3m2!1shi!2sin!4v1788955072230!5m2!1shi!2sin';
+// Authoritative outbound references (E-E-A-T + local citation signals).
+const govUrl = 'https://nndehradun.uk.gov.in/places-centres/malsi-deer-park/';
+const tourismUrl = 'https://uttarakhandtourism.gov.in/';
+const forestUrl = 'https://forest.uk.gov.in/';
+
+// Genuine Dehradun Zoo / Malsi Deer Park photos served locally.
+// Origin, author and licence for every file: public/images/IMAGE-SOURCES.md
+const photos = {
+  hero: '/images/dehradun-zoo-entrance.jpg',
+  entrance: '/images/dehradun-zoo-entrance.jpg',
+  deer: '/images/malsi-spotted-deer.jpg',
+  monkey: '/images/malsi-rhesus-macaque.jpg'
+};
+const heroAlt = `${attraction.fullName} (${attraction.legacyName}) main entrance on Mussoorie Road in ${attraction.city}, ${attraction.state}, ${attraction.country}`;
+const ogImage = abs('/images/og-dehradun-zoo.jpg');
 
 const faq = [
   { q: 'देहरादून जू किस दिन बंद रहता है?', a: 'प्रचलित दर्शक जानकारी के अनुसार सोमवार को बंद और मंगलवार से रविवार तक खुला रहता है। समय बदल सकता है, इसलिए निकलने से पहले फोन या स्थानीय सूचना से पुष्टि करना बेहतर है।' },
@@ -19,31 +73,69 @@ const faq = [
   { q: 'टिकट कितने का है?', a: 'ऑनलाइन स्थानीय गाइड वयस्क टिकट लगभग ₹100 बताती है और 12 वर्ष तक के बच्चों के लिए निःशुल्क प्रवेश का उल्लेख करती है। दरें बदल सकती हैं; काउंटर पर अंतिम कीमत मान्य होगी।' }
 ];
 
+// English FAQ set — rendered in the Visitor Guide section and merged into the
+// single FAQPage node so both languages share one structured-data block.
+const faqEn = [
+  { q: 'Where is Dehradun Zoo located?', a: 'Dehradun Zoo is located at Diversion, Mussoorie Road, Malsi, Dehradun, Uttarakhand 248009, India (plus code 93RG+24), on the road that climbs from the city towards Mussoorie.' },
+  { q: 'Is Dehradun Zoo free to visit?', a: 'No. Dehradun Zoo is not free to enter. Locally published visitor guides quote an adult ticket of roughly ₹100, with entry free for children up to 12 years. Rates and concessions can change, so the counter price on the day is final.' },
+  { q: 'What are Dehradun Zoo opening hours?', a: 'It is generally open from about 10:00 to 17:00 and reported closed on Mondays. Timings can change with season and maintenance, so confirm by phone before travelling.' },
+  { q: 'What was Dehradun Zoo previously called?', a: 'Dehradun Zoo was formerly known as Malsi Deer Park, and the Malsi name is still widely used locally for the same site on Mussoorie Road.' },
+  { q: 'How far is Dehradun Zoo from the city centre?', a: 'Official information places the site roughly 9 km from Clock Tower in central Dehradun, reached by taxi, auto-rickshaw or private car along Mussoorie Road towards Malsi.' },
+  { q: 'How much time should I spend at Dehradun Zoo?', a: 'Plan around 2–3 hours to walk the animal enclosures, the bird area and the wooded trails at a relaxed pace. Families with young children often take longer.' },
+  { q: 'Which landmarks can I combine with a Dehradun Zoo visit?', a: 'Robber\u2019s Cave (Gucchhu Pani) is the easiest pairing at around 2 km, followed by MDDA Park and Rajpur Road, and the Forest Research Institute for a half-day heritage and nature stop.' },
+  { q: 'Is Dehradun Zoo suitable for children?', a: 'Yes. It is a compact, green zoological park that is popular with families, with animal enclosures, a bird area and gentle nature trails that work well for young visitors.' }
+];
+
 const attractionLd = {
   '@context': 'https://schema.org',
-  '@type': ['TouristAttraction', 'LocalBusiness'],
-  name: 'देहरादून जू',
-  alternateName: ['Dehradun Zoo', 'Malsi Deer Park', 'मालसी डियर पार्क'],
-  description: 'मसूरी रोड, मालसी में स्थित छोटा जूलॉजिकल पार्क, जो वन्यजीव संरक्षण, जैव-विविधता शिक्षा और पारिवारिक प्रकृति भ्रमण के लिए जाना जाता है।',
-  ...(canonical ? { url: canonical } : {}),
-  telephone: '+91-9027174404',
+  '@type': ['TouristAttraction', 'LocalBusiness', 'Zoo'],
+  '@id': `${siteOrigin}/#attraction`,
+  name: attraction.fullName,
+  alternateName: [
+    'देहरादून जू',
+    'Malsi Deer Park',
+    'मालसी डियर पार्क',
+    `${attraction.fullName} and ${attraction.legacyName}`,
+    `${attraction.city} Zoo`
+  ],
+  description: `${attraction.fullName} (${attraction.legacyName}) is a wildlife park on Mussoorie Road in Malsi, ${attraction.city}, ${attraction.state}, ${attraction.country}, known for ex-situ conservation, biodiversity education, wildlife rescue and family nature walks.`,
+  url: canonical,
+  mainEntityOfPage: canonical,
+  image: [
+    abs('/images/dehradun-zoo-entrance.jpg'),
+    abs('/images/malsi-spotted-deer.jpg'),
+    abs('/images/malsi-rhesus-macaque.jpg')
+  ],
+  telephone: attraction.phone,
+  isAccessibleForFree: false,
+  publicAccess: true,
+  hasMap: mapUrl,
+  containedInPlace: {
+    '@type': 'City',
+    name: attraction.city,
+    address: {
+      '@type': 'PostalAddress',
+      addressRegion: attraction.state,
+      addressCountry: attraction.countryCode
+    }
+  },
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Diversion, Mussoorie Road, Malsi',
-    addressLocality: 'Dehradun',
-    addressRegion: 'Uttarakhand',
-    postalCode: '248009',
-    addressCountry: 'IN'
+    streetAddress: attraction.streetAddress,
+    addressLocality: attraction.city,
+    addressRegion: attraction.state,
+    postalCode: attraction.postalCode,
+    addressCountry: attraction.countryCode
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: 30.390192,
-    longitude: 78.074861
+    latitude: attraction.latitude,
+    longitude: attraction.longitude
   },
   aggregateRating: {
     '@type': 'AggregateRating',
-    ratingValue: '4.2',
-    reviewCount: '21544',
+    ratingValue: attraction.ratingValue,
+    reviewCount: Number(attraction.reviewCount),
     bestRating: '5'
   },
   openingHoursSpecification: [
@@ -54,13 +146,39 @@ const attractionLd = {
       closes: '17:00'
     }
   ],
-  priceRange: 'लगभग ₹100 वयस्क; दरें बदल सकती हैं',
-  sameAs: [mapUrl, govUrl]
+  priceRange: 'लगभग ₹100 वयस्क / approx. ₹100 adult — दरें बदल सकती हैं, rates may change',
+  sameAs: [mapUrl, govUrl, tourismUrl, forestUrl]
 };
+
+// Geographic ownership chain: Attraction -> City -> State -> Country
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  '@id': `${siteOrigin}/#breadcrumb`,
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: `${attraction.fullName} (${attraction.legacyName})`, item: canonical },
+    { '@type': 'ListItem', position: 2, name: attraction.city, item: 'https://en.wikipedia.org/wiki/Dehradun' },
+    { '@type': 'ListItem', position: 3, name: attraction.state, item: 'https://en.wikipedia.org/wiki/Uttarakhand' },
+    { '@type': 'ListItem', position: 4, name: attraction.country, item: 'https://en.wikipedia.org/wiki/India' }
+  ]
+};
+
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${siteOrigin}/#website`,
+  url: canonical,
+  name: `${attraction.fullName} (${attraction.legacyName}) Visitor Guide`,
+  alternateName: [`${attraction.domain} — ${attraction.fullName}`, 'देहरादून जू यात्रा मार्गदर्शिका'],
+  inLanguage: ['hi-IN', 'en'],
+  about: { '@id': `${siteOrigin}/#attraction` }
+};
+
 const faqLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: faq.map((item) => ({
+  '@id': `${siteOrigin}/#faq`,
+  mainEntity: [...faq, ...faqEn].map((item) => ({
     '@type': 'Question',
     name: item.q,
     acceptedAnswer: { '@type': 'Answer', text: item.a }
@@ -71,35 +189,74 @@ const faqLd = {
 <html lang="hi-IN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>देहरादून जू | मालसी वन्यजीव यात्रा मार्गदर्शिका</title>
-    <meta name="description" content="देहरादून जू (पूर्व नाम मालसी डियर पार्क) के लिए हिंदी यात्रा मार्गदर्शिका—समय, टिकट, पार्किंग, रास्ता, पास के आकर्षण, भोजन और उपयोगी FAQ।" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- ===== 2. TDK: title / description / canonical ===== -->
+    <title>देहरादून जू (Dehradun Zoo) — Malsi Deer Park | Dehradun Visitor Guide &amp; Location</title>
+    <meta name="description" content="Discover Dehradun Zoo (Malsi Deer Park), the iconic wildlife landmark in Dehradun, Uttarakhand, India. Location map, timings, ticket price, nearby Robber's Cave &amp; Forest Research Institute, plus a full देहरादून जू हिंदी यात्रा गाइड." />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta name="theme-color" content="#123c2d" />
-    {canonical && <link rel="canonical" href={canonical} />}
+    <meta name="format-detection" content="telephone=yes" />
+
+    <!-- ===== Geographic entity signals ===== -->
+    <meta name="geo.region" content="IN-UT" />
+    <meta name="geo.placename" content={`Malsi, ${attraction.city}`} />
+    <meta name="geo.position" content={`${attraction.latitude};${attraction.longitude}`} />
+    <meta name="ICBM" content={`${attraction.latitude}, ${attraction.longitude}`} />
+
+    <!-- ===== Icons + PWA ===== -->
     <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/icons/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="icon" href="/icons/favicon-16.png" type="image/png" sizes="16x16" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="/site.webmanifest" />
+    <meta name="application-name" content="देहरादून जू" />
+    <meta name="apple-mobile-web-app-title" content="देहरादून जू" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="msapplication-TileColor" content="#123c2d" />
+
+    <!-- ===== Open Graph / Twitter ===== -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="देहरादून जू | मालसी वन्यजीव यात्रा मार्गदर्शिका" />
-    <meta property="og:description" content="मसूरी रोड पर स्थित देहरादून जू के लिए स्थानीय हिंदी यात्रा जानकारी।" />
-    {canonical && <meta property="og:url" content={canonical} />}
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    <script type="application/ld+json" set:html={JSON.stringify(attractionLd)}></script>
-    <script type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP"></script>
-    <script src="/ga4.js"></script>
+    <meta property="og:site_name" content="Dehradun Zoo Visitor Guide" />
+    <meta property="og:locale" content="hi_IN" />
+    <meta property="og:locale:alternate" content="en_IN" />
+    <meta property="og:title" content={`देहरादून जू (${attraction.fullName}) — ${attraction.city} Travel Guide`} />
+    <meta property="og:description" content={`Visitor guide to ${attraction.fullName} (${attraction.legacyName}) in ${attraction.city}, ${attraction.state}, ${attraction.country} — location map, timings, tickets and nearby landmarks.`} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${attraction.fullName} in ${attraction.city}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${attraction.fullName} (${attraction.city}) — Visitor Guide & Location`} />
+    <meta name="twitter:description" content={`Location, timings, tickets and nearby landmarks for ${attraction.fullName} in ${attraction.city}, ${attraction.state}, ${attraction.country}.`} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={`${attraction.fullName} in ${attraction.city}`} />
+
+    <!-- ===== 1. Structured data (Schema.org / JSON-LD) ===== -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(attractionLd)}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteLd)}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>
+
+    <!-- ===== Analytics ===== -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP"></script>
+    <script is:inline src="/ga4.js"></script>
   </head>
   <body>
     <header class="sticky top-0 z-50 border-b border-white/10 bg-[#123c2d]/95 text-white backdrop-blur-xl">
       <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 py-3 lg:px-8">
         <a href="#top" aria-label="मुखपृष्ठ" class="shrink-0"><img src="/icons/logo.svg" alt="देहरादून जू" class="h-11 w-auto" /></a>
-        <nav class="hidden items-center gap-6 text-sm font-semibold md:flex">
+        <nav class="hidden items-center gap-5 text-[13px] font-semibold md:flex">
           <a class="hover:text-[#d9a441]" href="#plan">यात्रा योजना</a>
           <a class="hover:text-[#d9a441]" href="#reach">कैसे पहुँचें</a>
+          <a class="hover:text-[#d9a441]" href="#guide">Visitor Guide</a>
           <a class="hover:text-[#d9a441]" href="#nearby">आस-पास</a>
           <a class="hover:text-[#d9a441]" href="#faq">FAQ</a>
+          <a class="hover:text-[#d9a441]" href="#sources">Sources</a>
         </nav>
         <a href={mapUrl} class="rounded-full bg-[#d9a441] px-4 py-2 text-sm font-black text-[#173326]">दिशा खोलें</a>
       </div>
@@ -107,7 +264,10 @@ const faqLd = {
 
     <main id="top">
       <section class="forest-grid relative overflow-hidden bg-[#123c2d] text-white">
-        <div class="absolute inset-0 opacity-35" style={`background-image:linear-gradient(90deg,#123c2d 4%,#123c2dc4 48%,#123c2d22 100%),url('${photos.entrance}');background-size:cover;background-position:center;`}></div>
+        <div class="absolute inset-0 opacity-35">
+          <img src={photos.hero} alt={heroAlt} width="1208" height="675" class="h-full w-full object-cover" loading="eager" fetchpriority="high" decoding="async" />
+          <div class="absolute inset-0" style="background-image:linear-gradient(90deg,#123c2d 4%,#123c2dc4 48%,#123c2d22 100%);"></div>
+        </div>
         <div class="relative mx-auto grid min-h-[760px] max-w-7xl items-end gap-10 px-5 pb-16 pt-28 lg:grid-cols-[1.15fr_.85fr] lg:px-8 lg:pb-24">
           <div>
             <div class="mb-5 flex flex-wrap gap-2 text-sm font-bold">
@@ -116,8 +276,11 @@ const faqLd = {
               <span class="badge rounded-full px-3 py-1.5">★ 4.2 · 21,544 समीक्षाएँ</span>
             </div>
             <p class="mb-3 text-sm font-extrabold uppercase tracking-[.22em] text-[#c7dda3]">पूर्व नाम: मालसी डियर पार्क</p>
-            <h1 class="max-w-3xl text-5xl font-black leading-[1.05] sm:text-6xl lg:text-8xl">देहरादून जू</h1>
+            <h1 class="max-w-3xl text-5xl font-black leading-[1.05] sm:text-6xl lg:text-7xl">देहरादून जू <span class="mt-3 block text-lg font-extrabold leading-snug text-[#c7dda3] sm:text-2xl lg:text-3xl">Dehradun Zoo · Malsi Deer Park · Dehradun, India</span></h1>
             <p class="mt-6 max-w-2xl text-lg leading-8 text-white/82 sm:text-xl">शहर से पहाड़ों की ओर बढ़ते रास्ते पर एक हरा-भरा छोटा जूलॉजिकल पार्क—जहाँ वन्यजीव अवलोकन, जैव-विविधता शिक्षा और परिवार के साथ धीमी प्रकृति-यात्रा एक साथ मिलती है।</p>
+            <p class="mt-4 max-w-2xl text-base leading-7 text-white/72" lang="en">
+              Welcome to <strong class="font-black text-white">Dehradun Zoo</strong>, widely recognized as the central <strong class="font-black text-white">Malsi Deer Park</strong>. Located in the heart of <strong class="font-black text-white">Dehradun</strong>, <strong class="font-black text-white">Uttarakhand</strong>, <strong class="font-black text-white">India</strong>, this destination serves as a primary hub for travelers visiting the Doon Valley.
+            </p>
             <div class="mt-8 flex flex-wrap gap-3">
               <a href="#plan" class="rounded-full bg-white px-6 py-3 font-black text-[#123c2d]">यात्रा की योजना</a>
               <a href="tel:+919027174404" class="rounded-full border border-white/30 px-6 py-3 font-bold">+91 90271 74404</a>
@@ -146,8 +309,8 @@ const faqLd = {
             <a class="mt-6 inline-flex font-black text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={govUrl}>सरकारी जानकारी देखें ↗</a>
           </div>
           <div class="grid gap-4 sm:grid-cols-2">
-            <figure class="relative overflow-hidden rounded-[2rem] sm:row-span-2"><img src={photos.deer} alt="मालसी डियर पार्क में चीतल" class="h-full min-h-[520px] w-full object-cover" loading="lazy" /><figcaption class="photo-credit absolute bottom-3 left-3 rounded-full px-3 py-1 text-xs">चीतल • Malsi Deer Park</figcaption></figure>
-            <figure class="relative overflow-hidden rounded-[2rem]"><img src={photos.monkey} alt="मालसी डियर पार्क में रीसस मकाक" class="h-64 w-full object-cover" loading="lazy" /><figcaption class="photo-credit absolute bottom-3 left-3 rounded-full px-3 py-1 text-xs">रीसस मकाक • Malsi</figcaption></figure>
+            <figure class="relative overflow-hidden rounded-[2rem] sm:row-span-2"><img src={photos.deer} alt={`Chital (spotted deer) inside ${attraction.fullName} (${attraction.legacyName}), ${attraction.city}, ${attraction.country} — मालसी डियर पार्क में चीतल`} width="1400" height="1050" class="h-full min-h-[520px] w-full object-cover" loading="lazy" decoding="async" /><figcaption class="photo-credit absolute bottom-3 left-3 rounded-full px-3 py-1 text-xs">चीतल • Malsi Deer Park</figcaption></figure>
+            <figure class="relative overflow-hidden rounded-[2rem]"><img src={photos.monkey} alt={`Rhesus macaque inside ${attraction.fullName} (${attraction.legacyName}), ${attraction.city}, ${attraction.country} — मालसी डियर पार्क में रीसस मकाक`} width="790" height="523" class="h-64 w-full object-cover" loading="lazy" decoding="async" /><figcaption class="photo-credit absolute bottom-3 left-3 rounded-full px-3 py-1 text-xs">रीसस मकाक • Malsi</figcaption></figure>
             <div class="rounded-[2rem] bg-[#173f2f] p-7 text-white"><p class="text-5xl font-black text-[#c6dca0]">25 ha</p><p class="mt-2 leading-7 text-white/75">प्रकाशित स्थानीय पर्यटन जानकारी के अनुसार परिसर लगभग 25 हेक्टेयर में फैला है।</p></div>
           </div>
         </div>
@@ -176,10 +339,31 @@ const faqLd = {
               <div class="card rounded-2xl p-5"><strong>रेलवे स्टेशन से</strong><p class="mt-1 leading-7 text-black/65">Dehradun Railway Station से सड़क मार्ग सबसे सरल है। शहर ट्रैफिक के अनुसार अतिरिक्त समय रखें।</p></div>
               <div class="card rounded-2xl p-5"><strong>हवाई अड्डे से</strong><p class="mt-1 leading-7 text-black/65">Jolly Grant Airport शहर का निकटतम प्रमुख हवाई अड्डा है; वहाँ से टैक्सी द्वारा देहरादून और फिर Mussoorie Road की ओर आएँ।</p></div>
             </div>
+            <p class="mt-7 text-sm leading-6 text-black/65" lang="en">
+              For official updates and regional tourism information, visit the
+              <a class="font-bold text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={tourismUrl} target="_blank" rel="noopener noreferrer">Uttarakhand Official Tourism Portal</a>
+              and the
+              <a class="font-bold text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={govUrl} target="_blank" rel="noopener noreferrer">Dehradun Nagar Nigam Malsi Deer Park listing</a>.
+            </p>
           </div>
           <div class="map-frame overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-2xl shadow-black/10">
-            <iframe title="देहरादून जू का Google मानचित्र" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6116.945574265705!2d78.07269757714758!3d30.39008630210863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3908d7a8b4fca143%3A0xaf3a6aa36d3264ba!2sDehradun%20Zoo!5e1!3m2!1shi!2sin!4v1788955072230!5m2!1shi!2sin" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            <div class="flex flex-wrap items-center justify-between gap-4 p-5"><div><strong>93RG+24 • Malsi, Dehradun</strong><p class="text-sm text-black/55">Mussoorie Road, Uttarakhand 248009</p></div><a href={mapUrl} class="rounded-full bg-[#123c2d] px-5 py-3 font-bold text-white">Google Maps ↗</a></div>
+            <iframe
+              title={`Google map of ${attraction.fullName} (${attraction.legacyName}) in ${attraction.city}, ${attraction.state}`}
+              src={mapEmbedSrc}
+              width="100%"
+              height="450"
+              style="border:0;"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            <div class="flex flex-wrap items-center justify-between gap-4 p-5">
+              <div>
+                <strong>{attraction.fullName} ({attraction.legacyName})</strong>
+                <p class="text-sm text-black/55">{attraction.streetAddress}, {attraction.city}, {attraction.state} {attraction.postalCode}, {attraction.country} • {attraction.plusCode}</p>
+                <p class="text-sm text-black/55">फ़ोन / Phone: <a class="underline decoration-[#d9a441] decoration-2 underline-offset-2" href={`tel:${attraction.phone}`}>{attraction.phoneDisplay}</a></p>
+              </div>
+              <a href={mapUrl} class="rounded-full bg-[#123c2d] px-5 py-3 font-bold text-white">Google Maps ↗</a>
+            </div>
           </div>
         </div>
       </section>
@@ -206,6 +390,65 @@ const faqLd = {
         </div>
       </section>
 
+      <!-- ===== English entity-binding visitor guide ===== -->
+      <section id="guide" class="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24" lang="en">
+        <nav aria-label="Breadcrumb" class="text-xs font-bold uppercase tracking-[.14em] text-[#5e734a]">
+          <ol class="flex flex-wrap items-center gap-2">
+            <li><a class="hover:underline" href="#top">{attraction.fullName} ({attraction.legacyName})</a></li>
+            <li aria-hidden="true">→</li>
+            <li>{attraction.city}</li>
+            <li aria-hidden="true">→</li>
+            <li>{attraction.state}</li>
+            <li aria-hidden="true">→</li>
+            <li>{attraction.country}</li>
+          </ol>
+        </nav>
+
+        <p class="section-kicker mt-8">Visitor guide</p>
+        <h2 class="mt-3 text-4xl font-black sm:text-5xl">About {attraction.fullName}</h2>
+        <div class="mt-6 grid gap-8 lg:grid-cols-[1.25fr_.75fr]">
+          <div class="space-y-5 text-lg leading-8 text-black/70">
+            <p><strong>{attraction.fullName}</strong>, still widely called <strong>{attraction.legacyName}</strong>, is a compact zoological park spread over roughly 25 hectares on the lower slopes of the Shivalik range. Published local tourism information places it on Mussoorie Road at Malsi, about 9 km from Clock Tower in central {attraction.city}.</p>
+            <p>Its stated purpose is ex-situ wildlife conservation, biodiversity conservation, environmental education and wildlife rescue — which is why the site is best read as a conservation and nature-education destination rather than a large city zoo.</p>
+          </div>
+          <div class="rounded-[2rem] bg-[#e8efd9] p-7">
+            <h3 class="text-lg font-black">Verified entity facts</h3>
+            <dl class="mt-4 space-y-3 text-sm leading-6 text-black/70">
+              <div><dt class="font-bold text-[#1e563d]">Official name</dt><dd>{attraction.fullName} (देहरादून जू)</dd></div>
+              <div><dt class="font-bold text-[#1e563d]">Also known as</dt><dd>{attraction.legacyName}, मालसी डियर पार्क</dd></div>
+              <div><dt class="font-bold text-[#1e563d]">Category</dt><dd>{attraction.category}</dd></div>
+              <div><dt class="font-bold text-[#1e563d]">Address</dt><dd>{attraction.streetAddress}, {attraction.city}, {attraction.state} {attraction.postalCode}, {attraction.country}</dd></div>
+              <div><dt class="font-bold text-[#1e563d]">Plus code</dt><dd>{attraction.plusCode}</dd></div>
+              <div><dt class="font-bold text-[#1e563d]">Phone</dt><dd><a class="underline decoration-[#d9a441] decoration-2 underline-offset-2" href={`tel:${attraction.phone}`}>{attraction.phoneDisplay}</a></dd></div>
+              <div><dt class="font-bold text-[#1e563d]">Rating</dt><dd>★ {attraction.ratingValue} · {Number(attraction.reviewCount).toLocaleString('en-IN')} reviews</dd></div>
+              <div><dt class="font-bold text-[#1e563d]">Coordinates</dt><dd>{attraction.latitude}, {attraction.longitude}</dd></div>
+            </dl>
+          </div>
+        </div>
+
+        <h2 class="mt-16 text-4xl font-black sm:text-5xl">Location &amp; How to Visit {attraction.shortName} in {attraction.city}</h2>
+        <div class="mt-6 grid gap-6 md:grid-cols-3">
+          <article class="card rounded-2xl p-6"><h3 class="text-lg font-black">Address &amp; getting there</h3><p class="mt-2 leading-7 text-black/65">{attraction.fullName} sits at {attraction.streetAddress}, {attraction.city}, {attraction.state} {attraction.postalCode}, {attraction.country}. From Clock Tower it is roughly 9 km along Mussoorie Road, and taxis, auto-rickshaws and private cars are the usual options.</p></article>
+          <article class="card rounded-2xl p-6"><h3 class="text-lg font-black">Timings &amp; tickets</h3><p class="mt-2 leading-7 text-black/65">Reported opening hours are about 10:00–17:00, generally closed on Mondays. Adult tickets are quoted at roughly ₹100 with free entry for children up to 12 years. Treat the counter as the final authority on the day.</p></article>
+          <article class="card rounded-2xl p-6"><h3 class="text-lg font-black">Nearest transport hubs</h3><p class="mt-2 leading-7 text-black/65">Jolly Grant Airport is the nearest major airport and Dehradun Railway Station the nearest railhead; both connect to the city centre, from where Mussoorie Road leads up to Malsi.</p></article>
+        </div>
+        <p class="mt-6">
+          <a class="inline-flex font-black text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={mapUrl} target="_blank" rel="noopener noreferrer">Open {attraction.fullName} in Google Maps ↗</a>
+        </p>
+
+        <h2 class="mt-16 text-4xl font-black sm:text-5xl">Landmarks &amp; Attractions Around {attraction.shortName}</h2>
+        <p class="mt-5 max-w-3xl text-lg leading-8 text-black/70">When visiting <strong>{attraction.fullName}</strong>, visitors can easily explore surrounding historical landmarks and points of interest, including <strong>{attraction.nearbyLandmarks[0]}</strong> and <strong>{attraction.nearbyLandmarks[1]}</strong>.</p>
+        <ul class="mt-6 grid gap-4 md:grid-cols-3">
+          <li class="card rounded-2xl p-6"><strong class="text-lg">{attraction.nearbyLandmarks[0]}</strong><p class="mt-2 leading-7 text-black/65">Around 2 km from the zoo, this stream-cut gorge between rock walls is the easiest single add-on to a {attraction.shortName} visit.</p></li>
+          <li class="card rounded-2xl p-6"><strong class="text-lg">{attraction.nearbyLandmarks[1]}</strong><p class="mt-2 leading-7 text-black/65">A gentle park towards Rajpur Road with city views — a calm, family-friendly next stop on the way back into town.</p></li>
+          <li class="card rounded-2xl p-6"><strong class="text-lg">{attraction.nearbyLandmarks[2]}</strong><p class="mt-2 leading-7 text-black/65">Colonial architecture, vast green grounds and forestry heritage: a half-day pairing that rounds out the same nature-led itinerary.</p></li>
+        </ul>
+
+        <h2 class="mt-16 text-4xl font-black sm:text-5xl">History &amp; Significance of {attraction.fullName}</h2>
+        <p class="mt-5 max-w-3xl text-lg leading-8 text-black/70">{attraction.fullName} began life as <strong>{attraction.legacyName}</strong>, the name still used by most locals and on Mussoorie Road signage. As the site grew into a full zoological park it was renamed <strong>{attraction.fullName}</strong>, and the Malsi name is now formally recorded as its former name in municipal references.</p>
+        <p class="mt-4 max-w-3xl text-lg leading-8 text-black/70">Its significance lies in conservation rather than scale: ex-situ wildlife conservation, biodiversity conservation, environmental education and wildlife rescue are the stated objectives, making the park a reference point for how the Doon Valley combines tourism with conservation outreach.</p>
+      </section>
+
       <section id="faq" class="mx-auto max-w-4xl px-5 py-16 lg:py-24">
         <p class="section-kicker">FAQ</p>
         <h2 class="mt-3 text-4xl font-black sm:text-5xl">अक्सर पूछे जाने वाले सवाल</h2>
@@ -216,6 +459,34 @@ const faqLd = {
               <p class="max-w-3xl pt-3 leading-7 text-black/65">{item.a}</p>
             </details>
           ))}
+        </div>
+
+        <div class="mt-12" lang="en">
+          <h3 class="text-2xl font-black">Frequently asked questions about {attraction.fullName}</h3>
+          <div class="mt-5 divide-y divide-black/10 rounded-[2rem] border border-black/10 bg-[#fffdf8] px-6 sm:px-8">
+            {faqEn.map((item) => (
+              <details class="group py-5">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-black"><span>{item.q}</span><span class="text-2xl text-[#1e563d] transition group-open:rotate-45">+</span></summary>
+                <p class="max-w-3xl pt-3 leading-7 text-black/65">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Sources & references (E-E-A-T) ===== -->
+      <section id="sources" class="bg-[#e7ecd9] py-16 lg:py-24">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8" lang="en">
+          <p class="section-kicker">Sources &amp; references</p>
+          <h2 class="mt-3 text-4xl font-black sm:text-5xl">Where this {attraction.fullName} guide comes from</h2>
+          <p class="mt-5 max-w-3xl text-base leading-8 text-black/70">This page is an independent visitor guide. Entity facts — name, address, phone, plus code, category and review score — are aligned with the official {attraction.fullName} listing on Google Maps. Conservation purpose and distance details follow the Dehradun Nagar Nigam park listing and Uttarakhand state tourism material, and the photographs are genuine Dehradun Zoo / Malsi Deer Park images licensed on Wikimedia Commons.</p>
+          <ul class="mt-8 grid gap-4 md:grid-cols-2">
+            <li class="card rounded-2xl p-5"><a class="font-black text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={govUrl} target="_blank" rel="noopener noreferrer">Dehradun Nagar Nigam — Malsi Deer Park</a><p class="mt-2 text-sm leading-6 text-black/60">Municipal page confirming the site, its former name and its conservation and education objectives.</p></li>
+            <li class="card rounded-2xl p-5"><a class="font-black text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={tourismUrl} target="_blank" rel="noopener noreferrer">Uttarakhand Tourism — official portal</a><p class="mt-2 text-sm leading-6 text-black/60">State tourism department information for the Dehradun region.</p></li>
+            <li class="card rounded-2xl p-5"><a class="font-black text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={forestUrl} target="_blank" rel="noopener noreferrer">Uttarakhand Forest Department</a><p class="mt-2 text-sm leading-6 text-black/60">State forestry authority and the wider conservation context for the Shivalik belt.</p></li>
+            <li class="card rounded-2xl p-5"><a class="font-black text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={mapUrl} target="_blank" rel="noopener noreferrer">{attraction.fullName} on Google Maps</a><p class="mt-2 text-sm leading-6 text-black/60">Address, phone, plus code, coordinates, opening-hours signal and {Number(attraction.reviewCount).toLocaleString('en-IN')} reviews (★ {attraction.ratingValue}).</p></li>
+          </ul>
+          <p class="mt-6 text-sm leading-6 text-black/60">Photo credits and licences: <a class="underline decoration-[#d9a441] decoration-2 underline-offset-4" href="/images/IMAGE-SOURCES.md">public/images/IMAGE-SOURCES.md</a>. Details such as timings, ticket prices and facilities can change — always confirm them with the venue before you travel.</p>
         </div>
       </section>
 
@@ -229,11 +500,35 @@ const faqLd = {
 
     <footer class="bg-[#0d2d22] text-white">
       <div class="mx-auto max-w-7xl px-5 py-10 lg:px-8">
-        <div class="flex flex-col justify-between gap-7 md:flex-row md:items-end">
-          <div><img src="/icons/logo.svg" alt="देहरादून जू" class="h-12 w-auto" /><p class="mt-4 max-w-xl text-sm leading-6 text-white/60">यह एक स्वतंत्र यात्रा सूचना वेबसाइट है; इसका Dehradun Zoo, Uttarakhand Forest Department या किसी सरकारी निकाय से आधिकारिक संबंध नहीं है।</p></div>
-          <div class="text-sm text-white/65"><a href={govUrl} class="hover:text-white">सरकारी संदर्भ</a><span class="mx-3">•</span><a href={mapUrl} class="hover:text-white">Google Maps</a><span class="mx-3">•</span><a href="/images/IMAGE-SOURCES.md" class="hover:text-white">फोटो क्रेडिट</a></div>
+        <div class="grid gap-8 border-b border-white/10 pb-8 md:grid-cols-[1.1fr_.9fr]">
+          <div>
+            <img src="/icons/logo.svg" alt="देहरादून जू (Dehradun Zoo)" class="h-12 w-auto" />
+            <p class="mt-4 text-base font-black">{attraction.fullName} <span class="font-bold text-white/70">({attraction.legacyName})</span></p>
+            <address class="mt-2 not-italic text-sm leading-6 text-white/65">
+              {attraction.streetAddress}, {attraction.city},<br />{attraction.state} {attraction.postalCode}, {attraction.country} • {attraction.plusCode}<br />
+              <a class="hover:text-white" href={`tel:${attraction.phone}`}>{attraction.phoneDisplay}</a>
+            </address>
+          </div>
+          <div>
+            <p class="text-sm leading-6 text-white/60">यह एक स्वतंत्र यात्रा सूचना वेबसाइट है; इसका Dehradun Zoo, Uttarakhand Forest Department या किसी सरकारी निकाय से आधिकारिक संबंध नहीं है।</p>
+            <p class="mt-3 text-sm leading-6 text-white/60" lang="en">Independent visitor guide for {attraction.fullName} ({attraction.legacyName}) in {attraction.city}, {attraction.state}, {attraction.country}. Not affiliated with the venue or any government body.</p>
+          </div>
+        </div>
+        <div class="flex flex-col justify-between gap-4 pt-6 text-sm text-white/65 md:flex-row md:items-center">
+          <p>© {new Date().getFullYear()} {attraction.domain}</p>
+          <div>
+            <a href={govUrl} class="hover:text-white">सरकारी संदर्भ</a><span class="mx-3">•</span><a href={tourismUrl} class="hover:text-white">Tourism</a><span class="mx-3">•</span><a href={mapUrl} class="hover:text-white">Google Maps</a><span class="mx-3">•</span><a href="/images/IMAGE-SOURCES.md" class="hover:text-white">फोटो क्रेडिट</a>
+          </div>
         </div>
       </div>
     </footer>
+
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js').catch(function () {});
+        });
+      }
+    </script>
   </body>
 </html>
