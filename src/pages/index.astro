@@ -83,7 +83,10 @@ const faqEn = [
   { q: 'How far is Dehradun Zoo from the city centre?', a: 'Official information places the site roughly 9 km from Clock Tower in central Dehradun, reached by taxi, auto-rickshaw or private car along Mussoorie Road towards Malsi.' },
   { q: 'How much time should I spend at Dehradun Zoo?', a: 'Plan around 2–3 hours to walk the animal enclosures, the bird area and the wooded trails at a relaxed pace. Families with young children often take longer.' },
   { q: 'Which landmarks can I combine with a Dehradun Zoo visit?', a: 'Robber\u2019s Cave (Gucchhu Pani) is the easiest pairing at around 2 km, followed by MDDA Park and Rajpur Road, and the Forest Research Institute for a half-day heritage and nature stop.' },
-  { q: 'Is Dehradun Zoo suitable for children?', a: 'Yes. It is a compact, green zoological park that is popular with families, with animal enclosures, a bird area and gentle nature trails that work well for young visitors.' }
+  { q: 'Is Dehradun Zoo suitable for children?', a: 'Yes. It is a compact, green zoological park that is popular with families, with animal enclosures, a bird area and gentle nature trails that work well for young visitors.' },
+  { q: 'What is the ticket price (entry fee) for Dehradun Zoo?', a: 'Local visitor guides quote an adult entry ticket of roughly ₹100, with free entry for children up to 12 years. Camera or other facility charges may apply separately, and rates can change, so the counter price on the day is final.' },
+  { q: 'What time does Dehradun Zoo (Malsi Deer Park) open and close?', a: 'It is generally open from about 10:00 to 17:00 and reported closed on Mondays. These timings can shift with season and maintenance, so confirm by phone before you travel.' },
+  { q: 'Is Dehradun Zoo on the way to Mussoorie?', a: 'Yes. Dehradun Zoo (Malsi Deer Park) sits on Mussoorie Road at Malsi, the same route that climbs from Dehradun to Mussoorie, making it a convenient stop for travellers heading up or down the hill.' }
 ];
 
 const attractionLd = {
@@ -192,8 +195,8 @@ const faqLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- ===== 2. TDK: title / description / canonical ===== -->
-    <title>देहरादून जू (Dehradun Zoo) — Malsi Deer Park | Dehradun Visitor Guide &amp; Location</title>
-    <meta name="description" content="Discover Dehradun Zoo (Malsi Deer Park), the iconic wildlife landmark in Dehradun, Uttarakhand, India. Location map, timings, ticket price, nearby Robber's Cave &amp; Forest Research Institute, plus a full देहरादून जू हिंदी यात्रा गाइड." />
+    <title>देहरादून जू (Dehradun Zoo) — Malsi Deer Park | Timings, Ticket Price &amp; Location</title>
+    <meta name="description" content="Plan your visit to Dehradun Zoo (Malsi Deer Park) on Mussoorie Road, Dehradun, Uttarakhand — opening hours, ticket price, entry fee, location map, nearby Robber's Cave &amp; Forest Research Institute, plus a full देहरादून जू हिंदी यात्रा गाइड." />
     <link rel="canonical" href={canonical} />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta name="theme-color" content="#123c2d" />
@@ -224,7 +227,7 @@ const faqLd = {
     <meta property="og:locale" content="hi_IN" />
     <meta property="og:locale:alternate" content="en_IN" />
     <meta property="og:title" content={`देहरादून जू (${attraction.fullName}) — ${attraction.city} Travel Guide`} />
-    <meta property="og:description" content={`Visitor guide to ${attraction.fullName} (${attraction.legacyName}) in ${attraction.city}, ${attraction.state}, ${attraction.country} — location map, timings, tickets and nearby landmarks.`} />
+    <meta property="og:description" content={`Visitor guide to ${attraction.fullName} (${attraction.legacyName}) on Mussoorie Road, ${attraction.city}, ${attraction.state} — opening hours, ticket price, location map, nearby landmarks and a देहरादून जू हिंदी यात्रा गाइड.`} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
@@ -366,6 +369,16 @@ const faqLd = {
             </div>
           </div>
         </div>
+      </section>
+
+      <section id="mussoorie" class="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24" lang="en">
+        <p class="section-kicker">On the way to Mussoorie</p>
+        <h2 class="mt-3 text-4xl font-black sm:text-5xl">Dehradun Zoo for Mussoorie travellers</h2>
+        <div class="mt-6 grid gap-6 md:grid-cols-2">
+          <article class="card rounded-2xl p-6"><h3 class="text-lg font-black">“Mussoorie zoo” / “zoo in Mussoorie” — the same place</h3><p class="mt-2 leading-7 text-black/65">Many travellers searching for a <strong>Mussoorie zoo</strong> or <strong>zoo in Mussoorie</strong> are actually looking for {attraction.fullName} (formerly {attraction.legacyName}). It sits on Mussoorie Road at Malsi — the very road that climbs from Dehradun up to Mussoorie — so it is a natural stop on the way up or down.</p></article>
+          <article class="card rounded-2xl p-6"><h3 class="text-lg font-black">Distance from Mussoorie</h3><p class="mt-2 leading-7 text-black/65">From central Mussoorie the drive down to Malsi is roughly 30–35 km via Mussoorie Road / Rajpur Road, about a 1–1.5 hour descent depending on traffic. Pair it with Robber’s Cave and Rajpur Road for a full Doon Valley day before heading back up the hill.</p></article>
+        </div>
+        <p class="mt-6"><a class="inline-flex font-black text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href="#reach">See how to reach {attraction.fullName} from Mussoorie Road ↗</a></p>
       </section>
 
       <section id="nearby" class="bg-[#123c2d] py-16 text-white lg:py-24">
