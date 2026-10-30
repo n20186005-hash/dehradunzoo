@@ -1,3 +1,2 @@
-# Consolidate www → apex (non-www) to avoid split indexing / duplicate content.
-https://www.dehradunzoo.com/* https://dehradunzoo.com/:splat 301
-http://www.dehradunzoo.com/* https://dehradunzoo.com/:splat 301
+# Host/protocol redirects are implemented by src/worker.js before ASSETS.
+# Workers Static Assets accepts relative source paths, not domain-level sources.

@@ -20,3 +20,6 @@ body { margin: 0; background: var(--sand); color: var(--ink); font-family: "Noto
 .photo-credit { background: #10251dcc; color: #fff; }
 .map-frame iframe { width: 100%; min-height: 430px; border: 0; display: block; }
 summary::-webkit-details-marker { display: none; }
+
+.photo-credit { max-width: calc(100% - 1.5rem); white-space: normal; }
+nav a { overflow-wrap: anywhere; }

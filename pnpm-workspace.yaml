@@ -2,3 +2,4 @@
 # `pnpm install` clean instead of exiting with ERR_PNPM_IGNORED_BUILDS.
 allowBuilds:
   esbuild: true
+  workerd: true

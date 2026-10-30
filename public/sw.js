@@ -4,7 +4,7 @@
    Cross-origin requests (Google Analytics, Google Maps) always go to the
    network so they keep working normally. */
 
-const VERSION = 'dehradunzoo-v1';
+const VERSION = 'dehradunzoo-2026-10-29';
 
 const PRECACHE = [
   '/',
@@ -14,8 +14,7 @@ const PRECACHE = [
   '/icons/icon-192.png',
   '/icons/icon-512.png',
   '/icons/apple-touch-icon.png',
-  '/images/dehradun-zoo-entrance.jpg',
-  '/images/og-dehradun-zoo.jpg'
+  '/images/malsi-spotted-deer.jpg'
 ];
 
 self.addEventListener('install', (event) => {
@@ -47,11 +46,13 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(request)
         .then((response) => {
-          const copy = response.clone();
-          caches.open(VERSION).then((cache) => cache.put('/', copy));
+          if (url.pathname === '/' && response.status === 200) {
+            const copy = response.clone();
+            caches.open(VERSION).then((cache) => cache.put('/', copy));
+          }
           return response;
         })
-        .catch(() => caches.match('/'))
+        .catch(async () => (url.pathname === '/' && await caches.match('/')) || new Response('Page unavailable offline',{status:503,headers:{'X-Robots-Tag':'noindex'}}))
     );
     return;
   }

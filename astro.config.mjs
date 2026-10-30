@@ -11,7 +11,7 @@ export default defineConfig({
   site,
   trailingSlash: 'ignore',
   output: 'static',
-  integrations: [sitemap()],
+  integrations: [sitemap({filter: (page) => !/\/404(?:\.html|\/)?$/.test(new URL(page).pathname)})],
   vite: {
     plugins: [tailwindcss()]
   }

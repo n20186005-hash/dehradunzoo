@@ -32,14 +32,14 @@ const attraction = {
   countryCode: 'IN',
   postalCode: '248009',
   streetAddress: 'Diversion, Mussoorie Road, Malsi',
-  latitude: 30.3900863,
-  longitude: 78.0726976,
+  latitude: 30.3900817,
+  longitude: 78.0752725,
   plusCode: '93RG+24',
   phone: '+919027174404',
   phoneDisplay: '+91 90271 74404',
   category: 'Zoo / wildlife park',
   ratingValue: '4.2',
-  reviewCount: '21544',
+  reviewCount: '21742',
   nearbyLandmarks: ["Robber's Cave (Gucchhu Pani)", 'MDDA Park / Rajpur Road', 'Forest Research Institute']
 };
 
@@ -48,7 +48,7 @@ const canonical = `${siteOrigin}/`;
 const abs = (path: string) => new URL(path, `${siteOrigin}/`).toString();
 
 const mapUrl = 'https://maps.app.goo.gl/Egak7AZJp3zzA7s88';
-const mapEmbedSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6116.945574265705!2d78.07269757714758!3d30.39008630210863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3908d7a8b4fca143%3A0xaf3a6aa36d3264ba!2sDehradun%20Zoo!5e1!3m2!1shi!2sin!4v1788955072230!5m2!1shi!2sin';
+const mapEmbedSrc = 'https://www.google.com/maps?q=30.3900817,78.0752725&output=embed';
 // Authoritative outbound references (E-E-A-T + local citation signals).
 const govUrl = 'https://nndehradun.uk.gov.in/places-centres/malsi-deer-park/';
 const tourismUrl = 'https://uttarakhandtourism.gov.in/';
@@ -57,41 +57,39 @@ const forestUrl = 'https://forest.uk.gov.in/';
 // Genuine Dehradun Zoo / Malsi Deer Park photos served locally.
 // Origin, author and licence for every file: public/images/IMAGE-SOURCES.md
 const photos = {
-  hero: '/images/dehradun-zoo-entrance.jpg',
-  entrance: '/images/dehradun-zoo-entrance.jpg',
+  hero: '/images/malsi-spotted-deer.jpg',
   deer: '/images/malsi-spotted-deer.jpg',
   monkey: '/images/malsi-rhesus-macaque.jpg'
 };
-const heroAlt = `${attraction.fullName} (${attraction.legacyName}) main entrance on Mussoorie Road in ${attraction.city}, ${attraction.state}, ${attraction.country}`;
-const ogImage = abs('/images/og-dehradun-zoo.jpg');
+const heroAlt = `Historical 2010 photograph of spotted deer at Malsi Deer Park, Dehradun; not a guarantee of current displays`;
+const ogImage = abs('/images/malsi-spotted-deer.jpg');
 
 const faq = [
-  { q: 'देहरादून जू किस दिन बंद रहता है?', a: 'प्रचलित दर्शक जानकारी के अनुसार सोमवार को बंद और मंगलवार से रविवार तक खुला रहता है। समय बदल सकता है, इसलिए निकलने से पहले फोन या स्थानीय सूचना से पुष्टि करना बेहतर है।' },
-  { q: 'यहां कितना समय रखना चाहिए?', a: 'आराम से पशु बाड़ों, पक्षी क्षेत्र और हरियाली को देखने के लिए लगभग 2–3 घंटे रखें। छोटे बच्चों के साथ अधिक समय लग सकता है।' },
-  { q: 'क्या पार्किंग उपलब्ध है?', a: 'Mussoorie Road की ओर आने वाले आगंतुकों के लिए पार्किंग की सुविधा बताई जाती है। सप्ताहांत और छुट्टियों में जल्दी पहुंचना बेहतर है।' },
-  { q: 'क्या बच्चों के लिए उपयुक्त है?', a: 'हाँ। यह एक छोटा, हरियाली वाला जूलॉजिकल पार्क है और परिवारों के लिए लोकप्रिय है। बच्चों को पशु अवलोकन, पक्षी क्षेत्र और प्रकृति-आधारित अनुभव मिलते हैं।' },
-  { q: 'टिकट कितने का है?', a: 'ऑनलाइन स्थानीय गाइड वयस्क टिकट लगभग ₹100 बताती है और 12 वर्ष तक के बच्चों के लिए निःशुल्क प्रवेश का उल्लेख करती है। दरें बदल सकती हैं; काउंटर पर अंतिम कीमत मान्य होगी।' }
+  { q: 'देहरादून जू किस दिन बंद रहता है?', a: '29 अक्टूबर 2026 की जाँच में वर्तमान साप्ताहिक बंद दिन की आधिकारिक पुष्टि नहीं मिली। जाने से पहले सोमवार सहित अपने चुने हुए दिन का प्रवेश और अंतिम प्रवेश समय जाँचें।' },
+  { q: 'यहां कितना समय रखना चाहिए?', a: 'योजना बनाते समय लगभग 2–3 घंटे का लचीला समय रख सकते हैं। यह सुझाव है, तय अवधि नहीं; उस दिन खुले क्षेत्रों, रास्तों, मौसम और अपने समूह की जरूरतों के अनुसार समय बदलें।' },
+  { q: 'क्या पार्किंग उपलब्ध है?', a: 'पार्किंग की वर्तमान उपलब्धता और शुल्क की पुष्टि नहीं हुई है। आने से पहले निर्धारित पार्किंग और सुरक्षित उतरने की जगह पूछें; सड़क रोककर वाहन न खड़ा करें।' },
+  { q: 'क्या बच्चों के लिए उपयुक्त है?', a: 'हाँ। यह एक छोटा, हरियाली वाला जूलॉजिकल पार्क है और परिवारों के लिए लोकप्रिय है। चुने हुए दिन खुले क्षेत्रों, रास्तों और बच्चों की जरूरतों की जाँच करें; किसी विशेष पशु या सुविधा के उपलब्ध होने की गारंटी नहीं है।' },
+  { q: 'टिकट कितने का है?', a: 'वर्तमान आधिकारिक शुल्क और बच्चों की छूट की पुष्टि नहीं हुई है। भुगतान से पहले प्रवेश शुल्क, आयु-सीमा और अलग गतिविधियों के शुल्क काउंटर से जाँचें।' }
 ];
 
 // English FAQ set — rendered in the Visitor Guide section and merged into the
 // single FAQPage node so both languages share one structured-data block.
 const faqEn = [
   { q: 'Where is Dehradun Zoo located?', a: 'Dehradun Zoo is located at Diversion, Mussoorie Road, Malsi, Dehradun, Uttarakhand 248009, India (plus code 93RG+24), on the road that climbs from the city towards Mussoorie.' },
-  { q: 'Is Dehradun Zoo free to visit?', a: 'No. Dehradun Zoo is not free to enter. Locally published visitor guides quote an adult ticket of roughly ₹100, with entry free for children up to 12 years. Rates and concessions can change, so the counter price on the day is final.' },
-  { q: 'What are Dehradun Zoo opening hours?', a: 'It is generally open from about 10:00 to 17:00 and reported closed on Mondays. Timings can change with season and maintenance, so confirm by phone before travelling.' },
+  { q: 'Is Dehradun Zoo free to visit?', a: 'A current official admission tariff or free-entry concession has not been verified. Check the adult price, child eligibility and any separately charged activities with the counter before paying.' },
+  { q: 'What are Dehradun Zoo opening hours?', a: 'Google Maps displayed an opening signal of 09:00 when checked on 29 October 2026. This does not establish the closing time, last entry or weekly schedule. Confirm your chosen day with the operator.' },
   { q: 'What was Dehradun Zoo previously called?', a: 'Dehradun Zoo was formerly known as Malsi Deer Park, and the Malsi name is still widely used locally for the same site on Mussoorie Road.' },
   { q: 'How far is Dehradun Zoo from the city centre?', a: 'Official information places the site roughly 9 km from Clock Tower in central Dehradun, reached by taxi, auto-rickshaw or private car along Mussoorie Road towards Malsi.' },
-  { q: 'How much time should I spend at Dehradun Zoo?', a: 'Plan around 2–3 hours to walk the animal enclosures, the bird area and the wooded trails at a relaxed pace. Families with young children often take longer.' },
-  { q: 'Which landmarks can I combine with a Dehradun Zoo visit?', a: 'Robber\u2019s Cave (Gucchhu Pani) is the easiest pairing at around 2 km, followed by MDDA Park and Rajpur Road, and the Forest Research Institute for a half-day heritage and nature stop.' },
-  { q: 'Is Dehradun Zoo suitable for children?', a: 'Yes. It is a compact, green zoological park that is popular with families, with animal enclosures, a bird area and gentle nature trails that work well for young visitors.' },
-  { q: 'What is the ticket price (entry fee) for Dehradun Zoo?', a: 'Local visitor guides quote an adult entry ticket of roughly ₹100, with free entry for children up to 12 years. Camera or other facility charges may apply separately, and rates can change, so the counter price on the day is final.' },
-  { q: 'What time does Dehradun Zoo (Malsi Deer Park) open and close?', a: 'It is generally open from about 10:00 to 17:00 and reported closed on Mondays. These timings can shift with season and maintenance, so confirm by phone before you travel.' },
+  { q: 'How much time should I spend at Dehradun Zoo?', a: 'Allow a flexible 2–3 hours as a planning suggestion, rather than a fixed tour duration. Adjust to the areas actually open, walking conditions, weather and your group’s needs; particular facilities are not guaranteed.' },
+  { q: 'Which landmarks can I combine with a Dehradun Zoo visit?', a: 'Robber’s Cave, MDDA Park and the Forest Research Institute are separate outing ideas, not a verified continuous route. Check each destination’s location, access and transport independently.' },
+  { q: 'Is Dehradun Zoo suitable for children?', a: 'Yes. It is a compact, green zoological park that is popular with families, but check the open areas, walking conditions and your children’s needs on the day; particular animals or facilities are not guaranteed.' },
+  { q: 'What is the ticket price (entry fee) for Dehradun Zoo?', a: 'Current official fees and age-based concessions have not been verified. Ask the counter about adult and child tickets, any proof of age, and separately priced activities before paying.' },
   { q: 'Is Dehradun Zoo on the way to Mussoorie?', a: 'Yes. Dehradun Zoo (Malsi Deer Park) sits on Mussoorie Road at Malsi, the same route that climbs from Dehradun to Mussoorie, making it a convenient stop for travellers heading up or down the hill.' }
 ];
 
 const attractionLd = {
   '@context': 'https://schema.org',
-  '@type': ['TouristAttraction', 'LocalBusiness', 'Zoo'],
+  '@type': ['TouristAttraction', 'Zoo'],
   '@id': `${siteOrigin}/#attraction`,
   name: attraction.fullName,
   alternateName: [
@@ -105,13 +103,10 @@ const attractionLd = {
   url: canonical,
   mainEntityOfPage: canonical,
   image: [
-    abs('/images/dehradun-zoo-entrance.jpg'),
     abs('/images/malsi-spotted-deer.jpg'),
     abs('/images/malsi-rhesus-macaque.jpg')
   ],
   telephone: attraction.phone,
-  isAccessibleForFree: false,
-  publicAccess: true,
   hasMap: mapUrl,
   containedInPlace: {
     '@type': 'City',
@@ -135,22 +130,7 @@ const attractionLd = {
     latitude: attraction.latitude,
     longitude: attraction.longitude
   },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: attraction.ratingValue,
-    reviewCount: Number(attraction.reviewCount),
-    bestRating: '5'
-  },
-  openingHoursSpecification: [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
-      opens: '10:00',
-      closes: '17:00'
-    }
-  ],
-  priceRange: 'लगभग ₹100 वयस्क / approx. ₹100 adult — दरें बदल सकती हैं, rates may change',
-  sameAs: [mapUrl, govUrl, tourismUrl, forestUrl]
+  sameAs: [mapUrl]
 };
 
 // Geographic ownership chain: Attraction -> City -> State -> Country
@@ -196,7 +176,7 @@ const faqLd = {
 
     <!-- ===== 2. TDK: title / description / canonical ===== -->
     <title>देहरादून जू (Dehradun Zoo) — Malsi Deer Park | Timings, Ticket Price &amp; Location</title>
-    <meta name="description" content="Plan your visit to Dehradun Zoo (Malsi Deer Park) on Mussoorie Road, Dehradun, Uttarakhand — opening hours, ticket price, entry fee, location map, nearby Robber's Cave &amp; Forest Research Institute, plus a full देहरादून जू हिंदी यात्रा गाइड." />
+    <meta name="description" content="देहरादून जू / मालसी डियर पार्क यात्रा गाइड: समय और टिकट की पुष्टि, सही पता, ऐतिहासिक तस्वीरें और संरक्षण संदर्भ। Dehradun Zoo visitor planning and map." />
     <link rel="canonical" href={canonical} />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta name="theme-color" content="#123c2d" />
@@ -227,17 +207,17 @@ const faqLd = {
     <meta property="og:locale" content="hi_IN" />
     <meta property="og:locale:alternate" content="en_IN" />
     <meta property="og:title" content={`देहरादून जू (${attraction.fullName}) — ${attraction.city} Travel Guide`} />
-    <meta property="og:description" content={`Visitor guide to ${attraction.fullName} (${attraction.legacyName}) on Mussoorie Road, ${attraction.city}, ${attraction.state} — opening hours, ticket price, location map, nearby landmarks and a देहरादून जू हिंदी यात्रा गाइड.`} />
+    <meta property="og:description" content={`Visitor guide to ${attraction.fullName} (${attraction.legacyName}) on Mussoorie Road, ${attraction.city}, ${attraction.state} — how to confirm current access hours and admission charges, with a location map and देहरादून जू हिंदी यात्रा गाइड; not a verified current timetable or tariff.`} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${attraction.fullName} in ${attraction.city}`} />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="1050" />
+    <meta property="og:image:alt" content={heroAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${attraction.fullName} (${attraction.city}) — Visitor Guide & Location`} />
-    <meta name="twitter:description" content={`Location, timings, tickets and nearby landmarks for ${attraction.fullName} in ${attraction.city}, ${attraction.state}, ${attraction.country}.`} />
+    <meta name="twitter:description" content={`Location and planning guidance for ${attraction.fullName}, ${attraction.city}: confirm current hours and admission charges with the operator; no verified current tariff or full schedule.`} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content={`${attraction.fullName} in ${attraction.city}`} />
+    <meta name="twitter:image:alt" content={heroAlt} />
 
     <!-- ===== 1. Structured data (Schema.org / JSON-LD) ===== -->
     <script is:inline type="application/ld+json" set:html={JSON.stringify(attractionLd)}></script>
@@ -251,9 +231,9 @@ const faqLd = {
   </head>
   <body>
     <header class="sticky top-0 z-50 border-b border-white/10 bg-[#123c2d]/95 text-white backdrop-blur-xl">
-      <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 py-3 lg:px-8">
+      <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-3 lg:px-8">
         <a href="#top" aria-label="मुखपृष्ठ" class="shrink-0"><img src="/icons/logo.svg" alt="देहरादून जू" class="h-11 w-auto" /></a>
-        <nav class="hidden items-center gap-5 text-[13px] font-semibold md:flex">
+        <nav class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] font-semibold">
           <a class="hover:text-[#d9a441]" href="#plan">यात्रा योजना</a>
           <a class="hover:text-[#d9a441]" href="#reach">कैसे पहुँचें</a>
           <a class="hover:text-[#d9a441]" href="#guide">Visitor Guide</a>
@@ -268,7 +248,7 @@ const faqLd = {
     <main id="top">
       <section class="forest-grid relative overflow-hidden bg-[#123c2d] text-white">
         <div class="absolute inset-0 opacity-35">
-          <img src={photos.hero} alt={heroAlt} width="1208" height="675" class="h-full w-full object-cover" loading="eager" fetchpriority="high" decoding="async" />
+          <img src={photos.hero} alt={heroAlt} width="1400" height="1050" class="h-full w-full object-cover" loading="eager" fetchpriority="high" decoding="async" />
           <div class="absolute inset-0" style="background-image:linear-gradient(90deg,#123c2d 4%,#123c2dc4 48%,#123c2d22 100%);"></div>
         </div>
         <div class="relative mx-auto grid min-h-[760px] max-w-7xl items-end gap-10 px-5 pb-16 pt-28 lg:grid-cols-[1.15fr_.85fr] lg:px-8 lg:pb-24">
@@ -276,14 +256,15 @@ const faqLd = {
             <div class="mb-5 flex flex-wrap gap-2 text-sm font-bold">
               <span class="badge rounded-full px-3 py-1.5">शिवालिक की तलहटी</span>
               <span class="badge rounded-full px-3 py-1.5">मालसी • मसूरी रोड</span>
-              <span class="badge rounded-full px-3 py-1.5">★ 4.2 · 21,544 समीक्षाएँ</span>
+              <span class="badge rounded-full px-3 py-1.5">★ 4.2 · 21,742 समीक्षाएँ · 29-10-2026</span>
             </div>
             <p class="mb-3 text-sm font-extrabold uppercase tracking-[.22em] text-[#c7dda3]">पूर्व नाम: मालसी डियर पार्क</p>
             <h1 class="max-w-3xl text-5xl font-black leading-[1.05] sm:text-6xl lg:text-7xl">देहरादून जू <span class="mt-3 block text-lg font-extrabold leading-snug text-[#c7dda3] sm:text-2xl lg:text-3xl">Dehradun Zoo · Malsi Deer Park · Dehradun, India</span></h1>
             <p class="mt-6 max-w-2xl text-lg leading-8 text-white/82 sm:text-xl">शहर से पहाड़ों की ओर बढ़ते रास्ते पर एक हरा-भरा छोटा जूलॉजिकल पार्क—जहाँ वन्यजीव अवलोकन, जैव-विविधता शिक्षा और परिवार के साथ धीमी प्रकृति-यात्रा एक साथ मिलती है।</p>
             <p class="mt-4 max-w-2xl text-base leading-7 text-white/72" lang="en">
-              Welcome to <strong class="font-black text-white">Dehradun Zoo</strong>, widely recognized as the central <strong class="font-black text-white">Malsi Deer Park</strong>. Located in the heart of <strong class="font-black text-white">Dehradun</strong>, <strong class="font-black text-white">Uttarakhand</strong>, <strong class="font-black text-white">India</strong>, this destination serves as a primary hub for travelers visiting the Doon Valley.
+              Welcome to <strong class="font-black text-white">Dehradun Zoo</strong>, formerly called <strong class="font-black text-white">Malsi Deer Park</strong>. Located at Malsi on Mussoorie Road outside central <strong class="font-black text-white">Dehradun</strong>, <strong class="font-black text-white">Uttarakhand</strong>, <strong class="font-black text-white">India</strong>, use the exact map pin rather than assuming a city-centre location.
             </p>
+            <p class="mt-4 text-sm text-white/80"><a href="#photo-credits" class="underline">ऐतिहासिक फोटो / Historical photo: Akshita.b1, 2010 · CC BY-SA 4.0</a></p>
             <div class="mt-8 flex flex-wrap gap-3">
               <a href="#plan" class="rounded-full bg-white px-6 py-3 font-black text-[#123c2d]">यात्रा की योजना</a>
               <a href="tel:+919027174404" class="rounded-full border border-white/30 px-6 py-3 font-bold">+91 90271 74404</a>
@@ -292,12 +273,12 @@ const faqLd = {
           <aside class="paper rounded-[2rem] p-6 text-[#17221d] sm:p-8">
             <p class="section-kicker">एक नज़र में</p>
             <div class="mt-5 grid grid-cols-2 gap-4">
-              <div class="rounded-2xl bg-[#e8efd9] p-4"><div class="text-xs font-bold text-[#5b6b4d]">सामान्य समय*</div><div class="mt-1 text-xl font-black">10:00–17:00</div></div>
-              <div class="rounded-2xl bg-[#f3e8cb] p-4"><div class="text-xs font-bold text-[#796b48]">सोमवार*</div><div class="mt-1 text-xl font-black">बंद</div></div>
+              <div class="rounded-2xl bg-[#e8efd9] p-4"><div class="text-xs font-bold text-[#5b6b4d]">Maps संकेत · 29-10-2026</div><div class="mt-1 text-xl font-black">खुलना 09:00*</div></div>
+              <div class="rounded-2xl bg-[#f3e8cb] p-4"><div class="text-xs font-bold text-[#796b48]">साप्ताहिक बंद दिन</div><div class="mt-1 text-xl font-black">पुष्टि करें</div></div>
               <div class="rounded-2xl bg-[#e9eee8] p-4"><div class="text-xs font-bold text-[#5a6860]">सुझाया समय</div><div class="mt-1 text-xl font-black">2–3 घंटे</div></div>
-              <div class="rounded-2xl bg-[#e9eee8] p-4"><div class="text-xs font-bold text-[#5a6860]">वयस्क टिकट*</div><div class="mt-1 text-xl font-black">लगभग ₹100</div></div>
+              <div class="rounded-2xl bg-[#e9eee8] p-4"><div class="text-xs font-bold text-[#5a6860]">वयस्क टिकट*</div><div class="mt-1 text-xl font-black">काउंटर से पूछें</div></div>
             </div>
-            <p class="mt-4 text-xs leading-5 text-black/55">* समय और शुल्क बदल सकते हैं; काउंटर/स्थानीय सूचना अंतिम मानी जाए।</p>
+            <p class="mt-4 text-xs leading-5 text-black/55">* Maps का 09:00 संकेत पूर्ण साप्ताहिक समय-सारणी नहीं है। अंतिम प्रवेश, बंद समय और टिकट दर काउंटर से पूछें।</p>
             <div class="mt-6 border-t border-black/10 pt-5 text-sm leading-6"><strong>पता:</strong><br/>Diversion, Mussoorie Rd, Malsi, Dehradun, Uttarakhand 248009</div>
           </aside>
         </div>
@@ -312,9 +293,9 @@ const faqLd = {
             <a class="mt-6 inline-flex font-black text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={govUrl}>सरकारी जानकारी देखें ↗</a>
           </div>
           <div class="grid gap-4 sm:grid-cols-2">
-            <figure class="relative overflow-hidden rounded-[2rem] sm:row-span-2"><img src={photos.deer} alt={`Chital (spotted deer) inside ${attraction.fullName} (${attraction.legacyName}), ${attraction.city}, ${attraction.country} — मालसी डियर पार्क में चीतल`} width="1400" height="1050" class="h-full min-h-[520px] w-full object-cover" loading="lazy" decoding="async" /><figcaption class="photo-credit absolute bottom-3 left-3 rounded-full px-3 py-1 text-xs">चीतल • Malsi Deer Park</figcaption></figure>
-            <figure class="relative overflow-hidden rounded-[2rem]"><img src={photos.monkey} alt={`Rhesus macaque inside ${attraction.fullName} (${attraction.legacyName}), ${attraction.city}, ${attraction.country} — मालसी डियर पार्क में रीसस मकाक`} width="790" height="523" class="h-64 w-full object-cover" loading="lazy" decoding="async" /><figcaption class="photo-credit absolute bottom-3 left-3 rounded-full px-3 py-1 text-xs">रीसस मकाक • Malsi</figcaption></figure>
-            <div class="rounded-[2rem] bg-[#173f2f] p-7 text-white"><p class="text-5xl font-black text-[#c6dca0]">25 ha</p><p class="mt-2 leading-7 text-white/75">प्रकाशित स्थानीय पर्यटन जानकारी के अनुसार परिसर लगभग 25 हेक्टेयर में फैला है।</p></div>
+            <figure class="relative overflow-hidden rounded-[2rem] sm:row-span-2"><img src={photos.deer} alt={`Chital (spotted deer) inside ${attraction.fullName} (${attraction.legacyName}), ${attraction.city}, ${attraction.country} — मालसी डियर पार्क में चीतल`} width="1400" height="1050" class="h-full min-h-[520px] w-full object-cover" loading="lazy" decoding="async" /><figcaption class="photo-credit absolute bottom-3 left-3 rounded-full px-3 py-1 text-xs">चीतल • 2010 • <a href="#photo-credits" class="underline">Akshita.b1 · CC BY-SA 4.0</a></figcaption></figure>
+            <figure class="relative overflow-hidden rounded-[2rem]"><img src={photos.monkey} alt={`Rhesus macaque inside ${attraction.fullName} (${attraction.legacyName}), ${attraction.city}, ${attraction.country} — मालसी डियर पार्क में रीसस मकाक`} width="790" height="523" class="h-64 w-full object-cover" loading="lazy" decoding="async" /><figcaption class="photo-credit absolute bottom-3 left-3 rounded-full px-3 py-1 text-xs">मकाक • 2013 • <a href="#photo-credits" class="underline">Jim Ankan Deka · CC BY-SA 3.0</a></figcaption></figure>
+            <div class="rounded-[2rem] bg-[#173f2f] p-7 text-white"><p class="text-5xl font-black text-[#c6dca0]">25 ha</p><p class="mt-2 leading-7 text-white/75">परिसर का क्षेत्रफल केंद्रीय चिड़ियाघर प्राधिकरण के 16 जुलाई 2026 के पत्र में लगभग 25 हेक्टेयर दर्ज है।</p></div>
           </div>
         </div>
       </section>
@@ -324,8 +305,8 @@ const faqLd = {
           <p class="section-kicker">यात्रा योजना</p>
           <h2 class="mt-3 text-4xl font-black sm:text-5xl">जाने से पहले क्या जानें</h2>
           <div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            <article class="card rounded-[1.6rem] p-6"><div class="text-3xl">🎟️</div><h3 class="mt-4 text-xl font-black">टिकट / शुल्क</h3><p class="mt-2 leading-7 text-black/65">स्थानीय प्रकाशित गाइड में वयस्क टिकट लगभग ₹100 और 12 वर्ष तक के बच्चों के लिए निःशुल्क प्रवेश बताया गया है। अतिरिक्त सुविधाओं की फीस अलग हो सकती है।</p></article>
-            <article class="card rounded-[1.6rem] p-6"><div class="text-3xl">🅿️</div><h3 class="mt-4 text-xl font-black">पार्किंग</h3><p class="mt-2 leading-7 text-black/65">परिसर के पास पार्किंग उपलब्ध बताई जाती है। सप्ताहांत, छुट्टी और अच्छे मौसम वाले दिनों में सुबह जल्दी पहुँचना अधिक सुविधाजनक रहता है।</p></article>
+            <article class="card rounded-[1.6rem] p-6"><div class="text-3xl">🎟️</div><h3 class="mt-4 text-xl font-black">टिकट / शुल्क</h3><p class="mt-2 leading-7 text-black/65">वर्तमान आधिकारिक टिकट दर और बच्चों की छूट की पुष्टि नहीं हुई है। प्रवेश तथा अलग गतिविधियों का शुल्क भुगतान से पहले काउंटर पर जाँचें।</p></article>
+            <article class="card rounded-[1.6rem] p-6"><div class="text-3xl">🅿️</div><h3 class="mt-4 text-xl font-black">पार्किंग</h3><p class="mt-2 leading-7 text-black/65">आने से पहले निर्धारित पार्किंग की जगह, उपलब्धता और शुल्क पूछें। सड़क या प्रवेश मार्ग रोककर वाहन खड़ा न करें।</p></article>
             <article class="card rounded-[1.6rem] p-6"><div class="text-3xl">🌤️</div><h3 class="mt-4 text-xl font-black">बेहतर समय</h3><p class="mt-2 leading-7 text-black/65">अक्टूबर से मार्च आरामदायक रहता है। गर्म महीनों में सुबह का स्लॉट चुनें; दिन चढ़ने पर धूप और भीड़ दोनों बढ़ सकती हैं।</p></article>
             <article class="card rounded-[1.6rem] p-6"><div class="text-3xl">⏱️</div><h3 class="mt-4 text-xl font-black">कितना समय रखें</h3><p class="mt-2 leading-7 text-black/65">तेज़ घूमने के बजाय 2–3 घंटे रखें। बच्चों, फोटोग्राफी या शांत प्रकृति-वॉक के साथ आधा दिन भी सहज हो सकता है।</p></article>
           </div>
@@ -363,7 +344,7 @@ const faqLd = {
               <div>
                 <strong>{attraction.fullName} ({attraction.legacyName})</strong>
                 <p class="text-sm text-black/55">{attraction.streetAddress}, {attraction.city}, {attraction.state} {attraction.postalCode}, {attraction.country} • {attraction.plusCode}</p>
-                <p class="text-sm text-black/55">फ़ोन / Phone: <a class="underline decoration-[#d9a441] decoration-2 underline-offset-2" href={`tel:${attraction.phone}`}>{attraction.phoneDisplay}</a></p>
+                <p class="text-sm text-black/55">Maps सूची का फ़ोन / Maps listing phone: <a class="underline decoration-[#d9a441] decoration-2 underline-offset-2" href={`tel:${attraction.phone}`}>{attraction.phoneDisplay}</a></p>
               </div>
               <a href={mapUrl} class="rounded-full bg-[#123c2d] px-5 py-3 font-bold text-white">Google Maps ↗</a>
             </div>
@@ -375,8 +356,8 @@ const faqLd = {
         <p class="section-kicker">On the way to Mussoorie</p>
         <h2 class="mt-3 text-4xl font-black sm:text-5xl">Dehradun Zoo for Mussoorie travellers</h2>
         <div class="mt-6 grid gap-6 md:grid-cols-2">
-          <article class="card rounded-2xl p-6"><h3 class="text-lg font-black">“Mussoorie zoo” / “zoo in Mussoorie” — the same place</h3><p class="mt-2 leading-7 text-black/65">Many travellers searching for a <strong>Mussoorie zoo</strong> or <strong>zoo in Mussoorie</strong> are actually looking for {attraction.fullName} (formerly {attraction.legacyName}). It sits on Mussoorie Road at Malsi — the very road that climbs from Dehradun up to Mussoorie — so it is a natural stop on the way up or down.</p></article>
-          <article class="card rounded-2xl p-6"><h3 class="text-lg font-black">Distance from Mussoorie</h3><p class="mt-2 leading-7 text-black/65">From central Mussoorie the drive down to Malsi is roughly 30–35 km via Mussoorie Road / Rajpur Road, about a 1–1.5 hour descent depending on traffic. Pair it with Robber’s Cave and Rajpur Road for a full Doon Valley day before heading back up the hill.</p></article>
+          <article class="card rounded-2xl p-6"><h3 class="text-lg font-black">Malsi and Mussoorie are different locations</h3><p class="mt-2 leading-7 text-black/65">{attraction.fullName}, formerly {attraction.legacyName}, is at Malsi on Mussoorie Road in Dehradun. A road name does not place the zoo in Mussoorie town: use the zoo’s map pin when arranging transport.</p></article>
+          <article class="card rounded-2xl p-6"><h3 class="text-lg font-black">Distance from Mussoorie</h3><p class="mt-2 leading-7 text-black/65">Malsi is on Mussoorie Road in Dehradun, not central Mussoorie. Check your actual starting point, road conditions and journey before planning a stop; no current drive time has been verified.</p></article>
         </div>
         <p class="mt-6"><a class="inline-flex font-black text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href="#reach">See how to reach {attraction.fullName} from Mussoorie Road ↗</a></p>
       </section>
@@ -386,18 +367,18 @@ const faqLd = {
           <p class="text-xs font-black uppercase tracking-[.16em] text-[#b8d48f]">पास में क्या जोड़ें</p>
           <h2 class="mt-3 max-w-3xl text-4xl font-black sm:text-5xl">एक दिन की देहरादून प्रकृति + शहर यात्रा</h2>
           <div class="mt-10 grid gap-5 lg:grid-cols-3">
-            <article class="rounded-[1.7rem] bg-white/8 p-6 ring-1 ring-white/10"><p class="text-sm font-bold text-[#c8dda8]">लगभग 2 किमी</p><h3 class="mt-2 text-2xl font-black">Robber’s Cave / गुच्चू पानी</h3><p class="mt-3 leading-7 text-white/70">चट्टानों के बीच बहती धारा वाला लोकप्रिय प्राकृतिक स्थल। जू के साथ जोड़ी जाने वाली सबसे आसान आसपास की यात्राओं में से एक।</p></article>
-            <article class="rounded-[1.7rem] bg-white/8 p-6 ring-1 ring-white/10"><p class="text-sm font-bold text-[#c8dda8]">Rajpur Road की ओर</p><h3 class="mt-2 text-2xl font-black">MDDA Park / Rajpur</h3><p class="mt-3 leading-7 text-white/70">हल्की सैर, शहर के दृश्य और शाम के लिए शांत विकल्प। परिवारों के लिए सहज अगला पड़ाव।</p></article>
-            <article class="rounded-[1.7rem] bg-white/8 p-6 ring-1 ring-white/10"><p class="text-sm font-bold text-[#c8dda8]">लंबी आधे-दिन की योजना</p><h3 class="mt-2 text-2xl font-black">Forest Research Institute</h3><p class="mt-3 leading-7 text-white/70">औपनिवेशिक स्थापत्य, विशाल हरियाली और वानिकी इतिहास—जू से अलग लेकिन उसी प्रकृति-आधारित दिन को पूरा करने वाला अनुभव।</p></article>
+            <article class="rounded-[1.7rem] bg-white/8 p-6 ring-1 ring-white/10"><p class="text-sm font-bold text-[#c8dda8]">अलग से मार्ग जाँचें</p><h3 class="mt-2 text-2xl font-black">Robber’s Cave / गुच्चू पानी</h3><p class="mt-3 leading-7 text-white/70">यह एक अलग गंतव्य का सुझाव है। वर्तमान स्थान, प्रवेश और सुरक्षित मार्ग की पुष्टि के बाद ही इसे यात्रा में जोड़ें।</p></article>
+            <article class="rounded-[1.7rem] bg-white/8 p-6 ring-1 ring-white/10"><p class="text-sm font-bold text-[#c8dda8]">Rajpur Road की ओर</p><h3 class="mt-2 text-2xl font-black">MDDA Park / Rajpur</h3><p class="mt-3 leading-7 text-white/70">पार्क की वर्तमान जानकारी और पहुँच पहले जाँचें; इसे जू से पैदल निकट या स्वतः सुलभ न मानें।</p></article>
+            <article class="rounded-[1.7rem] bg-white/8 p-6 ring-1 ring-white/10"><p class="text-sm font-bold text-[#c8dda8]">लंबी आधे-दिन की योजना</p><h3 class="mt-2 text-2xl font-black">Forest Research Institute</h3><p class="mt-3 leading-7 text-white/70">यह जू से अलग संस्थान है। अपने कार्यक्रम में जोड़ने से पहले आधिकारिक आगंतुक सूचना और परिवहन विकल्प जाँचें।</p></article>
           </div>
 
           <div class="mt-14 grid gap-8 border-t border-white/15 pt-12 lg:grid-cols-[.7fr_1.3fr]">
             <div><p class="text-xs font-black uppercase tracking-[.16em] text-[#b8d48f]">आस-पास भोजन</p><h2 class="mt-3 text-4xl font-black">Rajpur–Mussoorie Road पर कैफ़े और भोजन</h2></div>
             <div class="grid gap-4 sm:grid-cols-2">
-              <div class="rounded-2xl bg-white p-5 text-[#17221d]"><strong>Beyul / आसपास होटल रेस्तराँ</strong><p class="mt-1 text-sm leading-6 text-black/60">जू से लगभग 1 किमी के भीतर प्रकाशित रेस्तराँ सूचियों में भारतीय और एशियाई विकल्प मिलते हैं।</p></div>
-              <div class="rounded-2xl bg-white p-5 text-[#17221d]"><strong>Café De Piccolo / Rajpur Road</strong><p class="mt-1 text-sm leading-6 text-black/60">कैफ़े शैली भोजन, कॉफ़ी और हल्के स्नैक्स के लिए लोकप्रिय विकल्प; जू के बाद शहर लौटते समय सुविधाजनक।</p></div>
+              <div class="rounded-2xl bg-white p-5 text-[#17221d]"><strong>भोजन से पहले स्थान जाँचें</strong><p class="mt-1 text-sm leading-6 text-black/60">किसी रेस्तराँ की शाखा या दूरी यहाँ सत्यापित नहीं है। जाने से पहले सही पता और वर्तमान खुलने की स्थिति जाँचें।</p></div>
+              <div class="rounded-2xl bg-white p-5 text-[#17221d]"><strong>मेनू और बजट</strong><p class="mt-1 text-sm leading-6 text-black/60">भोजन चुनते समय मेनू, कीमत और आहार संबंधी आवश्यकताएँ पूछें; यह किसी व्यवसाय की सिफारिश नहीं है।</p></div>
               <div class="rounded-2xl bg-white p-5 text-[#17221d]"><strong>स्थानीय ढाबे</strong><p class="mt-1 text-sm leading-6 text-black/60">Malsi–Mussoorie Road पर छोटे स्थानीय भोजनालय मिलते हैं; साफ-सफाई, भीड़ और ताज़ा भोजन देखकर चुनें।</p></div>
-              <div class="rounded-2xl bg-[#d9a441] p-5 text-[#173326]"><strong>सरल सुझाव</strong><p class="mt-1 text-sm leading-6">सुबह जू → दोपहर भोजन → Robber’s Cave / Rajpur → शाम शहर वापसी।</p></div>
+              <div class="rounded-2xl bg-[#d9a441] p-5 text-[#173326]"><strong>सरल सुझाव</strong><p class="mt-1 text-sm leading-6">पहले जू का प्रवेश पुष्ट करें, फिर भोजन और अलग गंतव्य की यात्रा स्वतंत्र रूप से तय करें।</p></div>
             </div>
           </div>
         </div>
@@ -421,7 +402,7 @@ const faqLd = {
         <h2 class="mt-3 text-4xl font-black sm:text-5xl">About {attraction.fullName}</h2>
         <div class="mt-6 grid gap-8 lg:grid-cols-[1.25fr_.75fr]">
           <div class="space-y-5 text-lg leading-8 text-black/70">
-            <p><strong>{attraction.fullName}</strong>, still widely called <strong>{attraction.legacyName}</strong>, is a compact zoological park spread over roughly 25 hectares on the lower slopes of the Shivalik range. Published local tourism information places it on Mussoorie Road at Malsi, about 9 km from Clock Tower in central {attraction.city}.</p>
+            <p><strong>{attraction.fullName}</strong>, still widely called <strong>{attraction.legacyName}</strong>, is a compact zoological park spread over roughly 25 hectares on the lower slopes of the Shivalik range. The municipal listing places it on Mussoorie Road at Malsi, about 9 km from Clock Tower in central {attraction.city}.</p>
             <p>Its stated purpose is ex-situ wildlife conservation, biodiversity conservation, environmental education and wildlife rescue — which is why the site is best read as a conservation and nature-education destination rather than a large city zoo.</p>
           </div>
           <div class="rounded-[2rem] bg-[#e8efd9] p-7">
@@ -442,7 +423,7 @@ const faqLd = {
         <h2 class="mt-16 text-4xl font-black sm:text-5xl">Location &amp; How to Visit {attraction.shortName} in {attraction.city}</h2>
         <div class="mt-6 grid gap-6 md:grid-cols-3">
           <article class="card rounded-2xl p-6"><h3 class="text-lg font-black">Address &amp; getting there</h3><p class="mt-2 leading-7 text-black/65">{attraction.fullName} sits at {attraction.streetAddress}, {attraction.city}, {attraction.state} {attraction.postalCode}, {attraction.country}. From Clock Tower it is roughly 9 km along Mussoorie Road, and taxis, auto-rickshaws and private cars are the usual options.</p></article>
-          <article class="card rounded-2xl p-6"><h3 class="text-lg font-black">Timings &amp; tickets</h3><p class="mt-2 leading-7 text-black/65">Reported opening hours are about 10:00–17:00, generally closed on Mondays. Adult tickets are quoted at roughly ₹100 with free entry for children up to 12 years. Treat the counter as the final authority on the day.</p></article>
+          <article class="card rounded-2xl p-6"><h3 class="text-lg font-black">Timings &amp; tickets</h3><p class="mt-2 leading-7 text-black/65">Maps showed an opening signal of 09:00 on 29 October 2026; no complete current schedule or official tariff is verified. Confirm closing, last entry, admission fees and age-based concessions before travelling.</p></article>
           <article class="card rounded-2xl p-6"><h3 class="text-lg font-black">Nearest transport hubs</h3><p class="mt-2 leading-7 text-black/65">Jolly Grant Airport is the nearest major airport and Dehradun Railway Station the nearest railhead; both connect to the city centre, from where Mussoorie Road leads up to Malsi.</p></article>
         </div>
         <p class="mt-6">
@@ -450,11 +431,11 @@ const faqLd = {
         </p>
 
         <h2 class="mt-16 text-4xl font-black sm:text-5xl">Landmarks &amp; Attractions Around {attraction.shortName}</h2>
-        <p class="mt-5 max-w-3xl text-lg leading-8 text-black/70">When visiting <strong>{attraction.fullName}</strong>, visitors can easily explore surrounding historical landmarks and points of interest, including <strong>{attraction.nearbyLandmarks[0]}</strong> and <strong>{attraction.nearbyLandmarks[1]}</strong>.</p>
+        <p class="mt-5 max-w-3xl text-lg leading-8 text-black/70">Ideas for a separate outing after <strong>{attraction.fullName}</strong> include <strong>{attraction.nearbyLandmarks[0]}</strong> and <strong>{attraction.nearbyLandmarks[1]}</strong>.</p>
         <ul class="mt-6 grid gap-4 md:grid-cols-3">
-          <li class="card rounded-2xl p-6"><strong class="text-lg">{attraction.nearbyLandmarks[0]}</strong><p class="mt-2 leading-7 text-black/65">Around 2 km from the zoo, this stream-cut gorge between rock walls is the easiest single add-on to a {attraction.shortName} visit.</p></li>
-          <li class="card rounded-2xl p-6"><strong class="text-lg">{attraction.nearbyLandmarks[1]}</strong><p class="mt-2 leading-7 text-black/65">A gentle park towards Rajpur Road with city views — a calm, family-friendly next stop on the way back into town.</p></li>
-          <li class="card rounded-2xl p-6"><strong class="text-lg">{attraction.nearbyLandmarks[2]}</strong><p class="mt-2 leading-7 text-black/65">Colonial architecture, vast green grounds and forestry heritage: a half-day pairing that rounds out the same nature-led itinerary.</p></li>
+          <li class="card rounded-2xl p-6"><strong class="text-lg">{attraction.nearbyLandmarks[0]}</strong><p class="mt-2 leading-7 text-black/65">A separate destination idea; verify its current pin, access and route before adding it to your day.</p></li>
+          <li class="card rounded-2xl p-6"><strong class="text-lg">{attraction.nearbyLandmarks[1]}</strong><p class="mt-2 leading-7 text-black/65">Check the park’s current visitor information and transport. No short walking connection from the zoo has been verified.</p></li>
+          <li class="card rounded-2xl p-6"><strong class="text-lg">{attraction.nearbyLandmarks[2]}</strong><p class="mt-2 leading-7 text-black/65">A separate institution whose official visitor access and travel arrangements should be checked independently.</p></li>
         </ul>
 
         <h2 class="mt-16 text-4xl font-black sm:text-5xl">History &amp; Significance of {attraction.fullName}</h2>
@@ -462,6 +443,7 @@ const faqLd = {
         <p class="mt-4 max-w-3xl text-lg leading-8 text-black/70">Its significance lies in conservation rather than scale: ex-situ wildlife conservation, biodiversity conservation, environmental education and wildlife rescue are the stated objectives, making the park a reference point for how the Doon Valley combines tourism with conservation outreach.</p>
       </section>
 
+      <section class="mx-auto max-w-7xl px-5 py-12 lg:px-8"><h2 class="text-3xl font-black">संरक्षण संदर्भ / Conservation context</h2><p class="mt-4 leading-8">केंद्रीय चिड़ियाघर प्राधिकरण का 16 जुलाई 2026 का पत्र शर्तों और मध्यावधि मूल्यांकन के अधीन 16 जुलाई 2028 तक मान्यता नवीकरण दर्ज करता है। पत्र में 25 हेक्टेयर क्षेत्र और छोटे चिड़ियाघर के मानक लागू करने का उल्लेख है; यह सभी निर्देश पूरे होने या हर प्रजाति आज दिखाई देने का प्रमाण नहीं है।</p><p class="mt-4 leading-8" lang="en">The CZA letter dated 16 July 2026 records renewal through 16 July 2028 subject to directives and mid-term evaluation. It identifies a 25-hectare site and applicable small-zoo standards. Its inspection observations do not establish completed improvements or today’s visible animal collection.</p><a class="underline" href="https://cza.nic.in/uploads/documents/zoos/zoo-status/hindi/267.pdf">CZA recognition letter and inspection context</a></section>
       <section id="faq" class="mx-auto max-w-4xl px-5 py-16 lg:py-24">
         <p class="section-kicker">FAQ</p>
         <h2 class="mt-3 text-4xl font-black sm:text-5xl">अक्सर पूछे जाने वाले सवाल</h2>
@@ -492,14 +474,15 @@ const faqLd = {
         <div class="mx-auto max-w-7xl px-5 lg:px-8" lang="en">
           <p class="section-kicker">Sources &amp; references</p>
           <h2 class="mt-3 text-4xl font-black sm:text-5xl">Where this {attraction.fullName} guide comes from</h2>
-          <p class="mt-5 max-w-3xl text-base leading-8 text-black/70">This page is an independent visitor guide. Entity facts — name, address, phone, plus code, category and review score — are aligned with the official {attraction.fullName} listing on Google Maps. Conservation purpose and distance details follow the Dehradun Nagar Nigam park listing and Uttarakhand state tourism material, and the photographs are genuine Dehradun Zoo / Malsi Deer Park images licensed on Wikimedia Commons.</p>
+          <p class="mt-5 max-w-3xl text-base leading-8 text-black/70">This page is an independent visitor guide. Entity facts — name, address, phone, plus code, category and review score — are aligned with the third-party {attraction.fullName} listing on Google Maps. Conservation purpose and distance details follow the Dehradun Nagar Nigam park listing and Uttarakhand state tourism material, and the photographs are genuine Dehradun Zoo / Malsi Deer Park images licensed on Wikimedia Commons.</p>
           <ul class="mt-8 grid gap-4 md:grid-cols-2">
             <li class="card rounded-2xl p-5"><a class="font-black text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={govUrl} target="_blank" rel="noopener noreferrer">Dehradun Nagar Nigam — Malsi Deer Park</a><p class="mt-2 text-sm leading-6 text-black/60">Municipal page confirming the site, its former name and its conservation and education objectives.</p></li>
             <li class="card rounded-2xl p-5"><a class="font-black text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={tourismUrl} target="_blank" rel="noopener noreferrer">Uttarakhand Tourism — official portal</a><p class="mt-2 text-sm leading-6 text-black/60">State tourism department information for the Dehradun region.</p></li>
             <li class="card rounded-2xl p-5"><a class="font-black text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={forestUrl} target="_blank" rel="noopener noreferrer">Uttarakhand Forest Department</a><p class="mt-2 text-sm leading-6 text-black/60">State forestry authority and the wider conservation context for the Shivalik belt.</p></li>
             <li class="card rounded-2xl p-5"><a class="font-black text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={mapUrl} target="_blank" rel="noopener noreferrer">{attraction.fullName} on Google Maps</a><p class="mt-2 text-sm leading-6 text-black/60">Address, phone, plus code, coordinates, opening-hours signal and {Number(attraction.reviewCount).toLocaleString('en-IN')} reviews (★ {attraction.ratingValue}).</p></li>
           </ul>
-          <p class="mt-6 text-sm leading-6 text-black/60">Photo credits and licences: <a class="underline decoration-[#d9a441] decoration-2 underline-offset-4" href="/images/IMAGE-SOURCES.md">public/images/IMAGE-SOURCES.md</a>. Details such as timings, ticket prices and facilities can change — always confirm them with the venue before you travel.</p>
+<div id="photo-credits" class="mt-8 space-y-4 text-sm leading-7"><h3 class="text-xl font-black">फोटो स्रोत / Photo credits</h3><p>Historical photos are not a promise of today’s animal displays. Local copies are resized/compressed; responsive presentation crops the view.</p><p><a class="underline" href="https://commons.wikimedia.org/wiki/File:Bevy_of_spotted_deer.jpg">Bevy of spotted deer</a> — <a class="underline" href="https://commons.wikimedia.org/wiki/User:Akshita.b1">Akshita.b1</a>, 5 September 2010, Malsi Deer Park. <a class="underline" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Resized/compressed; also used for the hero and social preview.</p><p><a class="underline" href="https://commons.wikimedia.org/wiki/File:An_Indian_monkey_(bandar)_in_Malsi_Deer_Park_(photo_-_Jim_Ankan_Deka).jpg">Malsi Deer Park monkey</a> — <a class="underline" href="https://commons.wikimedia.org/wiki/User:Jimankan">Jim Ankan Deka</a>, 22 September 2013. <a class="underline" href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>. Compressed for this guide. Adapted copies retain their respective source licences.</p></div>
+          <p class="mt-6 text-sm leading-6 text-black/60">Photo credits and licences: <a class="underline decoration-[#d9a441] decoration-2 underline-offset-4" href="/images/IMAGE-SOURCES.md">फोटो स्रोत और लाइसेंस / Photo sources and licences</a>. Maps rating is a third-party snapshot checked 29 October 2026, not reviews collected by this guide. Historical wildlife photos do not guarantee current animal displays. Confirm current access and charges before travel.</p>
         </div>
       </section>
 
@@ -523,8 +506,8 @@ const faqLd = {
             </address>
           </div>
           <div>
-            <p class="text-sm leading-6 text-white/60">यह एक स्वतंत्र यात्रा सूचना वेबसाइट है; इसका Dehradun Zoo, Uttarakhand Forest Department या किसी सरकारी निकाय से आधिकारिक संबंध नहीं है।</p>
-            <p class="mt-3 text-sm leading-6 text-white/60" lang="en">Independent visitor guide for {attraction.fullName} ({attraction.legacyName}) in {attraction.city}, {attraction.state}, {attraction.country}. Not affiliated with the venue or any government body.</p>
+            <p class="text-sm leading-6 text-white/60">यह एक स्वतंत्र, गैर-लाभकारी पर्यटन और जनशिक्षा सूचना गाइड है; इसका Dehradun Zoo, Uttarakhand Forest Department या किसी सरकारी निकाय से आधिकारिक संबंध नहीं है।</p>
+            <p class="mt-3 text-sm leading-6 text-white/60" lang="en">Independent nonprofit tourism and public education information guide for {attraction.fullName} ({attraction.legacyName}) in {attraction.city}, {attraction.state}, {attraction.country}. Not affiliated with the venue or any government body.</p>
           </div>
         </div>
         <div class="flex flex-col justify-between gap-4 pt-6 text-sm text-white/65 md:flex-row md:items-center">

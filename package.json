@@ -13,8 +13,8 @@
     "check": "astro check",
     "build": "astro build",
     "preview": "astro preview",
-    "deploy": "pnpm dlx wrangler@4.130.0 deploy",
-    "dev:worker": "pnpm dlx wrangler@4.130.0 dev"
+    "deploy": "wrangler deploy",
+    "dev:worker": "wrangler dev"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "wrangler": "4.130.0"
   }
 }
