@@ -1,0 +1,15 @@
+---
+import HubLayout from '../../layouts/HubLayout.astro';
+import ClusterList from '../../components/ClusterList.astro';
+import { allPages } from '../../data/cluster';
+---
+<HubLayout
+  lang="hi"
+  canonicalPath="/hi/"
+  title="देहरादून जू यात्रा गाइड — टिकट, समय, आवागमन और आस-पास"
+  metaDescription="देहरादून जू (मालसी डियर पार्क) की सभी यात्रा गाइड एक जगह: टिकट, खुलने का समय, कैसे पहुँचें, पार्किंग, जानवर, परिवार के सुझाव, आस-पास की सैर और मसूरी मार्ग की योजना।"
+  h1="देहरादून जू यात्रा गाइड"
+  intro="मसूरी रोड, देहरादून स्थित देहरादून जू (पूर्व नाम मालसी डियर पार्क) की यात्रा की योजना बनाने के लिए स्वतंत्र रूप से लिखी गई व्यावहारिक गाइड। हर गाइड एक सवाल का जवाब देती है और अगले उपयोगी कदम तक ले जाती है।"
+>
+  <ClusterList lang="hi" pages={allPages} />
+</HubLayout>

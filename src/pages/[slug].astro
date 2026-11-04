@@ -1,0 +1,14 @@
+---
+import GuideLayout from '../layouts/GuideLayout.astro';
+import { allPages } from '../data/cluster';
+
+export function getStaticPaths() {
+  return allPages.map((p) => ({
+    params: { slug: p.slug },
+    props: { slug: p.slug, page: p.en, keywords: p.keywords }
+  }));
+}
+
+const { slug, page, keywords } = Astro.props;
+---
+<GuideLayout lang="en" slug={slug} page={page} keywords={keywords} />

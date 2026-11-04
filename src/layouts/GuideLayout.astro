@@ -1,0 +1,293 @@
+---
+import '../styles/global.css';
+import type { ClusterPage, PageContent } from '../data/types';
+import { attraction, abs, canonicalHome, mapUrl, sources, photos, verified } from '../data/attraction';
+import { pageBySlug, topNavSlugs } from '../data/cluster';
+
+interface Props {
+  lang: 'en' | 'hi';
+  page: PageContent;
+  slug: string;
+  keywords: string[];
+}
+
+const { lang, page, slug, keywords } = Astro.props;
+
+const isHi = lang === 'hi';
+
+const ui = isHi
+  ? {
+      home: 'मुखपृष्ठ',
+      guides: 'यात्रा गाइड',
+      breadcrumb: 'आप यहाँ हैं',
+      faqTitle: 'अक्सर पूछे जाने वाले सवाल',
+      relatedTitle: 'आगे पढ़ें',
+      relatedText: 'इसी यात्रा से जुड़ी अन्य उपयोगी जानकारी',
+      homeLink: 'मुख्य गाइड पर लौटें',
+      openMap: 'दिशा खोलें',
+      planVisit: 'यात्रा की योजना',
+      lastChecked: 'अंतिम पुष्टि-जाँच',
+      sourcesTitle: 'स्रोत और संदर्भ',
+      sourcesText: 'यह पेज एक स्वतंत्र, गैर-लाभकारी पर्यटन और जनशिक्षा गाइड है; यह Dehradun Zoo, वन विभाग या किसी सरकारी निकाय की आधिकारिक वेबसाइट नहीं है। नीचे दिए तथ्यों के स्रोत देखें।',
+      disclaimer:
+        'टिकट दर, बंद समय, अंतिम प्रवेश और समग्र साप्ताहिक समय-सारणी की स्वतंत्र पुष्टि नहीं हुई है। जाने से पहले काउंटर या किसी आधिकारिक माध्यम से अपने चुने हुए दिन की पुष्टि करें। यह पेज किसी तय कीमत या समय का दावा नहीं करता।',
+      langSwitch: 'English',
+      langCode: 'en',
+      dateLabel: verified.mapsSnapshotDate
+    }
+  : {
+      home: 'Home',
+      guides: 'Visitor guides',
+      breadcrumb: 'You are here',
+      faqTitle: 'Frequently asked questions',
+      relatedTitle: 'Read next',
+      relatedText: 'More practical guides for the same visit',
+      homeLink: 'Back to the main guide',
+      openMap: 'Open directions',
+      planVisit: 'Plan your visit',
+      lastChecked: 'Last verification check',
+      sourcesTitle: 'Sources & references',
+      sourcesText:
+        'This is an independent nonprofit tourism and public-education guide. It is not the official website of Dehradun Zoo, the forest department or any government body. The facts on this page trace to the sources below.',
+      disclaimer:
+        'Current ticket rates, closing time, last entry and the complete weekly schedule have not been independently confirmed. Confirm your chosen day with the counter or an official channel before travelling. This page makes no claim to a fixed price or timetable.',
+      langSwitch: 'हिन्दी',
+      langCode: 'hi',
+      dateLabel: verified.mapsSnapshotDate
+    };
+
+const canonical = abs(isHi ? `/hi/${slug}/` : `/${slug}/`);
+const altUrl = abs(isHi ? `/${slug}/` : `/hi/${slug}/`);
+const homePath = isHi ? '/hi/' : '/';
+const homeHref = isHi ? '/hi/' : '/';
+const pageHref = (s: string) => (isHi ? `/hi/${s}/` : `/${s}/`);
+
+const ogImage = abs(photos.deer);
+const ogAlt = `Historical 2010 photograph of spotted deer at Malsi Deer Park, Dehradun; not a guarantee of current displays`;
+
+const navItems = topNavSlugs
+  .map((s) => pageBySlug.get(s))
+  .filter((p): p is ClusterPage => Boolean(p));
+
+const related = page.related
+  .map((s) => pageBySlug.get(s))
+  .filter((p): p is ClusterPage => p !== undefined && p.slug !== slug);
+
+const webPageLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${canonical}#webpage`,
+  url: canonical,
+  name: page.title,
+  description: page.metaDescription,
+  inLanguage: isHi ? 'hi-IN' : 'en',
+  isPartOf: { '@id': `${canonicalHome}#website` },
+  about: { '@id': `${canonicalHome}#attraction` },
+  primaryImageOfPage: ogImage,
+  keywords: keywords.join(', ')
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  '@id': `${canonical}#breadcrumb`,
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: isHi ? attraction.hindiName : attraction.fullName, item: abs(homePath) },
+    { '@type': 'ListItem', position: 2, name: page.h1, item: canonical }
+  ]
+};
+
+const faqLd = page.faq.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      '@id': `${canonical}#faq`,
+      mainEntity: page.faq.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
+      }))
+    }
+  : null;
+---
+<!doctype html>
+<html lang={isHi ? 'hi-IN' : 'en'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{page.title}</title>
+    <meta name="description" content={page.metaDescription} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta name="theme-color" content="#123c2d" />
+    <meta name="format-detection" content="telephone=yes" />
+
+    <!-- Bilingual mirror pairing (1:1 English + Hindi) -->
+    <link rel="alternate" hreflang="en" href={abs(`/${slug}/`)} />
+    <link rel="alternate" hreflang="hi" href={abs(`/hi/${slug}/`)} />
+    <link rel="alternate" hreflang="x-default" href={abs(`/${slug}/`)} />
+
+    <meta name="geo.region" content="IN-UT" />
+    <meta name="geo.placename" content={`Malsi, ${attraction.city}`} />
+    <meta name="geo.position" content={`${attraction.latitude};${attraction.longitude}`} />
+    <meta name="ICBM" content={`${attraction.latitude}, ${attraction.longitude}`} />
+
+    <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icons/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/icons/favicon-16.png" type="image/png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="application-name" content={attraction.hindiName} />
+    <meta name="apple-mobile-web-app-title" content={attraction.hindiName} />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="msapplication-TileColor" content="#123c2d" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Dehradun Zoo Visitor Guide" />
+    <meta property="og:locale" content={isHi ? 'hi_IN' : 'en_IN'} />
+    <meta property="og:locale:alternate" content={isHi ? 'en_IN' : 'hi_IN'} />
+    <meta property="og:title" content={page.title} />
+    <meta property="og:description" content={page.metaDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="1050" />
+    <meta property="og:image:alt" content={ogAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={page.title} />
+    <meta name="twitter:description" content={page.metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(webPageLd)}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>
+    {faqLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>}
+
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP"></script>
+    <script is:inline src="/ga4.js"></script>
+  </head>
+  <body>
+    <header class="sticky top-0 z-50 border-b border-white/10 bg-[#123c2d]/95 text-white backdrop-blur-xl">
+      <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-5 py-3 lg:px-8">
+        <a href={homeHref} aria-label={ui.home} class="shrink-0"><img src="/icons/logo.svg" alt="देहरादून जू (Dehradun Zoo)" class="h-11 w-auto" /></a>
+        <nav class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] font-semibold">
+          {navItems.map((p) => (
+            <a class="hover:text-[#d9a441]" href={pageHref(p.slug)}>{isHi ? p.hi.h1 : p.en.h1}</a>
+          ))}
+        </nav>
+        <div class="flex items-center gap-3">
+          <a href={altUrl} hreflang={ui.langCode} class="rounded-full border border-white/30 px-3 py-1.5 text-xs font-bold">{ui.langSwitch}</a>
+          <a href={mapUrl} class="rounded-full bg-[#d9a441] px-4 py-2 text-sm font-black text-[#173326]">{ui.openMap}</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="forest-grid relative overflow-hidden bg-[#123c2d] text-white">
+        <div class="mx-auto max-w-4xl px-5 pb-12 pt-12 lg:px-8 lg:pb-16 lg:pt-16">
+          <nav aria-label={ui.breadcrumb} class="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-[.14em] text-[#c7dda3]">
+            <a class="hover:underline" href={homeHref}>{attraction.fullName} · {ui.home}</a>
+            <span aria-hidden="true">→</span>
+            <span class="text-white/80">{page.h1}</span>
+          </nav>
+          <h1 class="mt-5 text-4xl font-black leading-tight sm:text-5xl">{page.h1}</h1>
+          <p class="mt-5 max-w-3xl text-lg leading-8 text-white/85">{page.intro}</p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href={homeHref} class="rounded-full bg-white px-5 py-2.5 text-sm font-black text-[#123c2d]">{ui.homeLink}</a>
+            <a href={mapUrl} class="rounded-full border border-white/30 px-5 py-2.5 text-sm font-bold">{ui.openMap}</a>
+          </div>
+          <p class="mt-5 text-xs text-white/60">{attraction.streetAddress}, {attraction.city}, {attraction.state} {attraction.postalCode}, {attraction.country} • {attraction.plusCode}</p>
+        </div>
+      </section>
+
+      <article class="mx-auto max-w-4xl px-5 py-14 lg:px-8 lg:py-20">
+        {page.sections.map((section) => (
+          <section class="mt-10 first:mt-0">
+            <h2 class="text-3xl font-black leading-snug sm:text-4xl">{section.heading}</h2>
+            {section.body.map((para) => (
+              <p class="mt-4 text-lg leading-8 text-black/70">{para}</p>
+            ))}
+          </section>
+        ))}
+
+        {page.faq.length > 0 && (
+          <section class="mt-14">
+            <h2 class="text-3xl font-black sm:text-4xl">{ui.faqTitle}</h2>
+            <div class="mt-6 divide-y divide-black/10 rounded-[2rem] border border-black/10 bg-[#fffdf8] px-6 sm:px-8">
+              {page.faq.map((item) => (
+                <details class="group py-5">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-black"><span>{item.q}</span><span class="text-2xl text-[#1e563d] transition group-open:rotate-45">+</span></summary>
+                  <p class="max-w-3xl pt-3 leading-7 text-black/65">{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {related.length > 0 && (
+          <section class="mt-14">
+            <h2 class="text-3xl font-black sm:text-4xl">{ui.relatedTitle}</h2>
+            <p class="mt-3 text-black/65">{ui.relatedText}</p>
+            <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+              {related.map((p) => (
+                <li class="card rounded-2xl p-5">
+                  <a class="text-lg font-black text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={pageHref(p.slug)}>{isHi ? p.hi.h1 : p.en.h1}</a>
+                  <p class="mt-2 text-sm leading-6 text-black/60">{isHi ? p.hi.metaDescription : p.en.metaDescription}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <section class="mt-14 rounded-[2rem] bg-[#e8efd9] p-7 sm:p-8">
+          <h2 class="text-2xl font-black">{ui.sourcesTitle}</h2>
+          <p class="mt-3 text-sm leading-6 text-black/70">{ui.sourcesText}</p>
+          <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <li><a class="font-bold text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={sources.gov} target="_blank" rel="noopener noreferrer">Dehradun Nagar Nigam — Malsi Deer Park</a></li>
+            <li><a class="font-bold text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={sources.tourism} target="_blank" rel="noopener noreferrer">Uttarakhand Tourism</a></li>
+            <li><a class="font-bold text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4" href={sources.maps} target="_blank" rel="noopener noreferrer">Google Maps listing</a></li>
+          </ul>
+          <p class="mt-5 text-xs leading-6 text-black/60">{ui.disclaimer}</p>
+          <p class="mt-2 text-xs text-black/50">{ui.lastChecked}: {ui.dateLabel}</p>
+        </section>
+      </article>
+    </main>
+
+    <footer class="bg-[#0d2d22] text-white">
+      <div class="mx-auto max-w-7xl px-5 py-10 lg:px-8">
+        <div class="grid gap-8 border-b border-white/10 pb-8 md:grid-cols-[1.1fr_.9fr]">
+          <div>
+            <img src="/icons/logo.svg" alt="देहरादून जू (Dehradun Zoo)" class="h-12 w-auto" />
+            <p class="mt-4 text-base font-black">{attraction.fullName} <span class="font-bold text-white/70">({attraction.legacyName})</span></p>
+            <address class="mt-2 not-italic text-sm leading-6 text-white/65">
+              {attraction.streetAddress}, {attraction.city},<br />{attraction.state} {attraction.postalCode}, {attraction.country} • {attraction.plusCode}<br />
+              <a class="hover:text-white" href={`tel:${attraction.phone}`}>{attraction.phoneDisplay}</a>
+            </address>
+          </div>
+          <div>
+            <p class="text-sm leading-6 text-white/60">{ui.sourcesText}</p>
+            <p class="mt-3 text-sm leading-6 text-white/60">
+              <a class="hover:text-white underline" href={homeHref}>{ui.homeLink}</a>
+            </p>
+          </div>
+        </div>
+        <div class="flex flex-col justify-between gap-4 pt-6 text-sm text-white/65 md:flex-row md:items-center">
+          <p>© {new Date().getFullYear()} {attraction.domain}</p>
+          <div>
+            <a href={sources.gov} class="hover:text-white">सरकारी संदर्भ</a><span class="mx-3">•</span><a href={sources.tourism} class="hover:text-white">Tourism</a><span class="mx-3">•</span><a href={sources.maps} class="hover:text-white">Google Maps</a><span class="mx-3">•</span><a href="/images/IMAGE-SOURCES.md" class="hover:text-white">फोटो क्रेडिट</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js').catch(function () {});
+        });
+      }
+    </script>
+  </body>
+</html>

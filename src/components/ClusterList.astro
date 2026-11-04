@@ -1,0 +1,50 @@
+---
+import type { ClusterPage } from '../data/types';
+
+interface Props {
+  lang: 'en' | 'hi';
+  pages: ClusterPage[];
+}
+
+const { lang, pages } = Astro.props;
+const isHi = lang === 'hi';
+
+const groupTitles: Record<string, string> = isHi
+  ? {
+      A: 'टिकट, समय और बुनियादी जानकारी',
+      B: 'आवागमन, नक्शा और पार्किंग',
+      C: 'जानवर, शिक्षा और पार्क का अनुभव',
+      D: 'परिवार और व्यावहारिक ज़रूरतें',
+      E: 'आस-पास की सैर और मार्ग योजना'
+    }
+  : {
+      A: 'Tickets, hours & visitor basics',
+      B: 'Transport, maps & parking',
+      C: 'Animals, education & the park experience',
+      D: 'Families & practical visit needs',
+      E: 'Nearby outings & route planning'
+    };
+
+const order: Array<'A' | 'B' | 'C' | 'D' | 'E'> = ['A', 'B', 'C', 'D', 'E'];
+const groups = order
+  .map((g) => ({ key: g, title: groupTitles[g], items: pages.filter((p) => p.group === g) }))
+  .filter((g) => g.items.length > 0);
+---
+<div class="space-y-12">
+  {groups.map((group) => (
+    <section>
+      <h2 class="text-2xl font-black sm:text-3xl">{group.title}</h2>
+      <ul class="mt-5 grid gap-4 sm:grid-cols-2">
+        {group.items.map((p) => (
+          <li class="card rounded-2xl p-5">
+            <a
+              class="text-lg font-black text-[#1e563d] underline decoration-[#d9a441] decoration-2 underline-offset-4"
+              href={isHi ? `/hi/${p.slug}/` : `/${p.slug}/`}
+            >{isHi ? p.hi.h1 : p.en.h1}</a>
+            <p class="mt-2 text-sm leading-6 text-black/60">{isHi ? p.hi.metaDescription : p.en.metaDescription}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</div>

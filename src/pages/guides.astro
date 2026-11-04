@@ -1,0 +1,15 @@
+---
+import HubLayout from '../layouts/HubLayout.astro';
+import ClusterList from '../components/ClusterList.astro';
+import { allPages } from '../data/cluster';
+---
+<HubLayout
+  lang="en"
+  canonicalPath="/guides/"
+  title="Dehradun Zoo Visitor Guides — Tickets, Timings, Transport & Nearby Places"
+  metaDescription="Browse every Dehradun Zoo (Malsi Deer Park) visitor guide: tickets, opening hours, how to reach, parking, animals, family tips, nearby outings and Mussoorie-route planning."
+  h1="Dehradun Zoo visitor guides"
+  intro="Practical, independently written guides for planning a visit to Dehradun Zoo (formerly Malsi Deer Park) on Mussoorie Road, Dehradun. Each guide answers one visitor question and links to the next useful step."
+>
+  <ClusterList lang="en" pages={allPages} />
+</HubLayout>
